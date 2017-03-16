@@ -80,6 +80,17 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 	</head>
 	<body  style="background-color: #7798c5;">
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="loading-modal">
+			<div class="vertical-alignment-helper">
+			  <div class="modal-dialog vertical-align-center" role="document">
+			    <div class="modal-content" style="background:none;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+			      <div class="image_container" style="background:none">
+							<img src="images/Asset/loading.gif" />
+						</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
 		<header class="navHead">
 			<div class="container">
 				<div style="width:85px; float: left;">
@@ -111,7 +122,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			<div id="MASKAPAI" class="collapse filterCollapse">
 				<div class="row filterBox no-margin">
 					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">MASKAPAI</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#MASKAPAI">DONE</button></div>
+					<div id="btnmaskapai" class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#MASKAPAI">DONE</button></div>
 				</div>
 				<div class="form-group" style="padding:0 15px;">
 					<div style="border-bottom:2px solid #d2cece; padding-top:10px; padding-bottom:5px;">
@@ -125,7 +136,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Asia" name="check" checked />
+							    <input type="checkbox" value="None" id="Asia" value="air" class="checkmaskapai" checked />
 							    <label for="Asia"></label>
 							</label>
 	                    </span>
@@ -138,7 +149,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Batik" name="Batik" checked />
+							    <input type="checkbox" value="None" id="Batik" value="batik" class="checkmaskapai" checked />
 							    <label for="Batik"></label>
 							</label>
 	                    </span>
@@ -151,7 +162,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Citilink" name="Citilink" checked />
+							    <input type="checkbox" value="None" id="Citilink" value="citilink" class="checkmaskapai" checked />
 							    <label for="Citilink"></label>
 							</label>
 	                    </span>
@@ -163,7 +174,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Garuda" name="Garuda" checked />
+							    <input type="checkbox" value="None" id="Garuda" value="garuda" class="checkmaskapai" checked />
 							    <label for="Garuda"></label>
 							</label>
 	                    </span>
@@ -176,7 +187,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Lion" name="Lion" checked />
+							    <input type="checkbox" value="None" id="Lion" value="lion" class="checkmaskapai" checked />
 							    <label for="Lion"></label>
 							</label>
 	                    </span>
@@ -189,7 +200,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" name="Malaysia" checked />
+							    <input type="checkbox" value="None" id="Malaysia" value="malaysia" class="checkmaskapai"  checked />
 							    <label for="Malaysia"></label>
 							</label>
 	                    </span>
@@ -564,6 +575,9 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				})
 			});
 			$("#ex2").slider({});
+				var maskapai = $(".checkmaskapai:checked").val();
+				console.log(maskapai);
+			});
 			//
 			// // Without JQuery
 			// var slider = new Slider('#ex2', {});
