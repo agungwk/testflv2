@@ -121,6 +121,18 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 	</head>
 	<body class="bgImg" style="background-image: url(images/Asset/background.png);">
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="loading-modal">
+			<div class="vertical-alignment-helper">
+			  <div class="modal-dialog vertical-align-center" role="document">
+			    <div class="modal-content" style="background:none;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+			      <div class="image_container" style="background:none">
+							<img src="images/Asset/loading.gif" />
+						</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+
 		<header class="navHead">
 			<div class="container">
 				<div style="width:85px; float: left;">
