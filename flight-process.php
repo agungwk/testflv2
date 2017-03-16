@@ -36,7 +36,11 @@
     $outbond_time_one  = '00:00';
     $outbond_time_two  = '23:59';
   }
-  
+  if (isset($json->maskapai_filter)){
+    $maskapai_filter  = $json->maskapai_filter;
+  } else{
+    $maskapai_filter  = ["Air Asia", "Batik Air", "Citilink", "Garuda Indonesia", "Lion Air", "Malaysia Airlines", "Sriwijaya Air"];
+  }
   
 
   if (!function_exists("curl_init")) die("cURL extension is not installed");
@@ -197,7 +201,7 @@
       }
     }
 
-     if ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one) &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)){
+     if (in_array($leg['flights'][0]['name'], $maskapai_filter) && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one) &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two))){
         $result = array(
         'departure' => array(
           'id' => $itenary->OutboundLegId,

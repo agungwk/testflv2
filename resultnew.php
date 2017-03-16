@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <?php
 	session_start();
@@ -136,7 +137,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Asia" value="air" class="checkmaskapai" checked />
+							    <input type="checkbox"  id="Asia" value="Air Asia" class="checkmaskapai" checked />
 							    <label for="Asia"></label>
 							</label>
 	                    </span>
@@ -149,7 +150,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Batik" value="batik" class="checkmaskapai" checked />
+							    <input type="checkbox"  id="Batik" value="Batik Air" class="checkmaskapai" checked />
 							    <label for="Batik"></label>
 							</label>
 	                    </span>
@@ -162,7 +163,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Citilink" value="citilink" class="checkmaskapai" checked />
+							    <input type="checkbox"  id="Citilink" value="Citilink" class="checkmaskapai" checked />
 							    <label for="Citilink"></label>
 							</label>
 	                    </span>
@@ -174,7 +175,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Garuda" value="garuda" class="checkmaskapai" checked />
+							    <input type="checkbox"  id="Garuda" value="Garuda Indonesia" class="checkmaskapai" checked />
 							    <label for="Garuda"></label>
 							</label>
 	                    </span>
@@ -187,20 +188,29 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Lion" value="lion" class="checkmaskapai" checked />
+							    <input type="checkbox"  id="Lion" value="Lion Air" class="checkmaskapai" checked />
 							    <label for="Lion"></label>
 							</label>
 	                    </span>
                   	</div>
 
+					<div Class="listBox">
+						<span class="bold f14" style="float:left;">Sriwijaya Air</span>
+						<span class="f14" style="float:right;">
 
+							<label class="squaredFour">
+							    <input type="checkbox"  id="Sri" value="Sriwijaya Air" class="checkmaskapai" checked />
+							    <label for="Sriwijaya"></label>
+							</label>
+	                    </span>
+                  	</div>
 
                   	<div Class="listBox">
 						<span class="bold f14" style="float:left;">Malaysia Airlines</span>
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" value="malaysia" class="checkmaskapai"  checked />
+							    <input type="checkbox"  id="Malaysia" value="Malaysia Airlines" class="checkmaskapai"  checked />
 							    <label for="Malaysia"></label>
 							</label>
 	                    </span>
@@ -576,12 +586,21 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			});
 			$("#ex2").slider({});
 			$('#btnmaskapai').click(function(e){
-				// e.preventDefault();
-				// $('#loading-modal').modal({
-				// 	keyboard: false,
-				// 	backdrop: "static"
-				// });
-				var maskapai = $(".checkmaskapai:checked").val();
+				e.preventDefault();
+				$('#loading-modal').modal({
+					keyboard: false,
+					backdrop: "static"
+				});
+				var data_json = $.parseJSON(data);
+				var maskapai = [];
+            	$.each($(".checkmaskapai:checked"), function(){            
+                	maskapai.push($(this).val());
+            	});
+				data_json['maskapai_filter'] = maskapai;
+				var jdata = JSON.stringify(data_json);
+				var jqxhr = $.post( "flight-process.php", jdata, function(jdata) {
+					$.redirect('resultnew.php', {'formdata' : JSON.stringify(jdata)});
+				})
 				console.log(maskapai);
 			});
 			//
