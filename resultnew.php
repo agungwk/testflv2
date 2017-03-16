@@ -549,6 +549,11 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				$(".time1").html(timeone + " - " + timetwo);
 			});
 			$('#btnwaktu').click(function(e){
+				e.preventDefault();
+				$('#loading-modal').modal({
+					keyboard: false,
+					backdrop: "static"
+				});
 				var data_json = $.parseJSON(data);
 				var time = $('#ex1').data('slider').getValue();
 				data_json['timeone'] = number_to_time(time[0]);
