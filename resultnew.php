@@ -575,6 +575,12 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				})
 			});
 			$("#ex2").slider({});
+			$('#btnmaskapai').click(function(e){
+				// e.preventDefault();
+				// $('#loading-modal').modal({
+				// 	keyboard: false,
+				// 	backdrop: "static"
+				// });
 				var maskapai = $(".checkmaskapai:checked").val();
 				console.log(maskapai);
 			});
