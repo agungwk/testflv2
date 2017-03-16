@@ -29,8 +29,15 @@
   $tiket_token = $json->tiket_token;
 	$asal_next = '0';
 	$tujuan_next = '0';
-  $outbond_time_one  = '23:00';
-  $outbond_time_two  = '23:59';
+  if (isset($json->timeone)){
+    $outbond_time_one  = $json->timeone;
+    $outbond_time_two  = $json->timetwo;
+  } else{
+    $outbond_time_one  = '00:00';
+    $outbond_time_two  = '23:59';
+  }
+  
+  
 
   if (!function_exists("curl_init")) die("cURL extension is not installed");
 
@@ -103,9 +110,7 @@
            'locationschema' => 'Iata',
            'pagesize' => '5',
            'pageindex' => '0',
-           'children' => $child, 
-           'outbounddepartstarttime' => $outbond_time_one,
-           'outbounddepartendtime' => $outbond_time_two
+           'children' => $child
          )));
   curl_setopt($ch, CURLOPT_HEADER, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
@@ -143,8 +148,6 @@
       break;
     }
   }
-
-
 
   $counter = 1;
   // print_r($r);
@@ -193,26 +196,29 @@
         array_push($legs, $leg);
       }
     }
-    // echo json_encode( $leg['flights']);
-    $result = array(
-      'departure' => array(
-        'id' => $itenary->OutboundLegId,
-        'flight_number' => $leg['flights'][0]['code'],
-        'full_via'=> $origin . " - " . $destination . ' (' . substr($leg['departureTime'], 11, 5) . ' - ' . substr($leg['arrivalTime'], 11, 5) . ')',
-        'image' => $leg['flights'][0]['imageUrl'],
-        'simple_departure_time' => $leg['departureTime'],
-        'simple_arrival_time' => $leg['arrivalTime'],
-        'transit' => $leg['stops'],
-        'duration' => $leg['duration'],
-        'origin' => $origin,
-        'destination' => $destination,
-        'price' => $itenary->PricingOptions[0]->Price,
-        'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
-      ),
-      'total_price' => intval($itenary->PricingOptions[0]->Price),
-      'type' => 'sky'
-    );
-    array_push($unsorted_result, $result);
+
+     if ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one) &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)){
+        $result = array(
+        'departure' => array(
+          'id' => $itenary->OutboundLegId,
+          'flight_number' => $leg['flights'][0]['code'],
+          'full_via'=> $origin . " - " . $destination . ' (' . substr($leg['departureTime'], 11, 5) . ' - ' . substr($leg['arrivalTime'], 11, 5) . ')',
+          'image' => $leg['flights'][0]['imageUrl'],
+          'simple_departure_time' => $leg['departureTime'],
+          'simple_arrival_time' => $leg['arrivalTime'],
+          'transit' => $leg['stops'],
+          'duration' => $leg['duration'],
+          'origin' => $origin,
+          'destination' => $destination,
+          'price' => $itenary->PricingOptions[0]->Price,
+          'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+        ),
+        'total_price' => intval($itenary->PricingOptions[0]->Price),
+        'type' => 'sky'
+      );
+      array_push($unsorted_result, $result);
+     };
+    
     $counter++;
   }
 
