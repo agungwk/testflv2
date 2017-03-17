@@ -238,11 +238,11 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 					</div>
 
 
-					<div style="padding:10px 0">
+					<!--<div style="padding:10px 0">
 						<div style="font-size:14px; color:#000000">Return</div>
 						<div class="time2" style="font-size:12px;">00:00 - 23:59</div>
 						<input id="ex2" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
-					</div>
+					</div> -->
 				</div>
 			</div>
 
