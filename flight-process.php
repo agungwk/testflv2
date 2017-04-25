@@ -1,4 +1,6 @@
 <?php
+
+  start_process:
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
 
@@ -39,9 +41,13 @@
   if (isset($json->maskapai_filter)){
     $maskapai_filter  = $json->maskapai_filter;
   } else{
-    $maskapai_filter  = ["Air Asia", "Batik Air", "Citilink", "Garuda Indonesia", "Lion Air", "Malaysia Airlines", "Sriwijaya Air"];
+    $maskapai_filter  = [];
   }
-  
+  if (isset($json->status_transit)){
+    $status_transit  = $json->status_transit;
+  } else{
+    $status_transit  = 'direct';
+  }
 
   if (!function_exists("curl_init")) die("cURL extension is not installed");
 
@@ -74,27 +80,60 @@
   $unsorted_result = array();
   $counter = 1;
   foreach ($list_tikets as $tiket) {
-    if ($counter > 0) break;
-    $result = array(
-      'departure' => array(
-        'id' => $tiket->flight_id,
-        'flight_number' => $tiket->flight_number,
-        'full_via'=> $tiket->full_via,
-        'image' => $tiket->image,
-        'simple_departure_time' => $tiket->simple_departure_time,
-        'simple_arrival_time' => $tiket->simple_arrival_time,
-        'transit' => $tiket->stop,
-        'origin' => $origin,
-        'destination' => $destination,
-        'duration' => $tiket->duration,
-        'price' => $tiket->price_value
-      ),
-      'total_price' => intval($tiket->price_value),
-      'type' => 'tiket'
-    );
-    array_push($unsorted_result, $result);
+    if ($counter > 20) break;
+    if (isset($json->maskapai_filter) || isset($json->timeone) || isset($json->status_transit)){
+      // echo "Filteeerrr\n";
+      if ((($status_transit == 'direct' && empty($tiket->stop)) || ($status_transit == 'stop' && !empty($tiket->stop)))
+      && (in_array($leg['flights'][0]['name'], $maskapai_filter) || empty($maskapai_filter))
+      && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one)
+      &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)))
+      {
+        $result = array(
+          'departure' => array(
+            'id' => $tiket->flight_id,
+            'flight_number' => $tiket->flight_number,
+            'full_via'=> $tiket->full_via,
+            'image' => $tiket->image,
+            'simple_departure_time' => $tiket->simple_departure_time,
+            'simple_arrival_time' => $tiket->simple_arrival_time,
+            'transit' => $tiket->stop,
+            'origin' => $origin,
+            'destination' => $destination,
+            'duration' => $tiket->duration,
+            'price' => $tiket->price_value
+          ),
+          'total_price' => intval($tiket->price_value),
+          'type' => 'tiket'
+          );
+          array_push($unsorted_result, $result);
+      } else {
+        $counter--;
+      }
+    } else {
+      $result = array(
+        'departure' => array(
+          'id' => $tiket->flight_id,
+          'flight_number' => $tiket->flight_number,
+          'full_via'=> $tiket->full_via,
+          'image' => $tiket->image,
+          'simple_departure_time' => $tiket->simple_departure_time,
+          'simple_arrival_time' => $tiket->simple_arrival_time,
+          'transit' => $tiket->stop,
+          'origin' => $origin,
+          'destination' => $destination,
+          'duration' => $tiket->duration,
+          'price' => $tiket->price_value
+        ),
+        'total_price' => intval($tiket->price_value),
+        'type' => 'tiket'
+      );
+      array_push($unsorted_result, $result);
+    }
+
     $counter++;
   }
+
+  $retry_null = 3;
 
   $apikey_sky = 'ba616238434893123338551586683135';
   $url = 'http://partners.api.skyscanner.net/apiservices/pricing/v1.0/?apikey=' . $apikey_sky;
@@ -112,10 +151,10 @@
            'adults' => $adult,
            'country' => 'ID',
            'locationschema' => 'Iata',
-           'pagesize' => '5',
-           'pageindex' => '0',
-           'children' => $child
+           'children' => $child,
+           'infants' => $infant
          )));
+  // echo "http_build_query(array)\n";
   curl_setopt($ch, CURLOPT_HEADER, true);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
   $r = curl_exec($ch);
@@ -131,6 +170,7 @@
   curl_close($ch);
 
   $url = $url . '?apikey=' . $apikey_sky;
+  // echo "url :: ".$url."\n";
   while (true) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -146,10 +186,22 @@
 
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
+    // echo "http code :: ".$httpcode."\n";
     if ($httpcode == 304) {
       continue;
     } else {
-      break;
+      $list_sky = json_decode($r);
+      if (count($list_sky->Itineraries) < 1) {
+        if ($retry_null < 0) {
+          // echo "break :: ".$retry_null."\n";
+          break;
+        }
+        $retry_null = $retry_null - 1;
+        // echo "start_process :: ".$retry_null."\n";
+        goto start_process;
+      } else {
+        break;
+      }
     }
   }
 
@@ -168,7 +220,8 @@
   $leg = array();
 
   foreach ($list_sky->Itineraries as $itenary) {
-    if ($counter > 5) break;
+    // echo json_encode($itenary)."\n";
+    if ($counter > 20) break;
     $agent = array();
     foreach ($agents_sky as $agent_sky) {
       if ($agent_sky->Id == $itenary->PricingOptions[0]->Agents[0]) {
@@ -200,9 +253,39 @@
         array_push($legs, $leg);
       }
     }
-
-     if (in_array($leg['flights'][0]['name'], $maskapai_filter) && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one) &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two))){
-        $result = array(
+    // echo json_encode($leg['stops']);
+    if (isset($json->maskapai_filter) || isset($json->timeone) || isset($json->status_transit)){
+      // echo "Filteeerrr\n";
+      if ((($status_transit == 'direct' && empty($leg['stops'])) || ($status_transit == 'stop' && !empty($leg['stops'])))
+      && (in_array($leg['flights'][0]['name'], $maskapai_filter) || empty($maskapai_filter))
+      && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one)
+      &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)))
+      {
+         $result = array(
+           'departure' => array(
+             'id' => $itenary->OutboundLegId,
+             'flight_number' => $leg['flights'][0]['code'],
+             'full_via'=> $origin . " - " . $destination . ' (' . substr($leg['departureTime'], 11, 5) . ' - ' . substr($leg['arrivalTime'], 11, 5) . ')',
+             'image' => $leg['flights'][0]['imageUrl'],
+             'simple_departure_time' => $leg['departureTime'],
+             'simple_arrival_time' => $leg['arrivalTime'],
+             'transit' => $leg['stops'],
+             'duration' => $leg['duration'],
+             'origin' => $origin,
+             'destination' => $destination,
+             'price' => $itenary->PricingOptions[0]->Price,
+             'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+           ),
+           'total_price' => intval($itenary->PricingOptions[0]->Price),
+           'type' => 'sky'
+         );
+         array_push($unsorted_result, $result);
+      } else {
+        $counter--;
+      }
+    } else {
+      // echo "No Filteeeerrr\n";
+      $result = array(
         'departure' => array(
           'id' => $itenary->OutboundLegId,
           'flight_number' => $leg['flights'][0]['code'],
@@ -221,8 +304,8 @@
         'type' => 'sky'
       );
       array_push($unsorted_result, $result);
-     };
-    
+    }
+
     $counter++;
   }
 

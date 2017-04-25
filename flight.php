@@ -219,7 +219,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 												<div class="input-field">
 													<label for="date-start" class="lableFont">BERANGKAT:</label>
 													<div class="input-group">
-								                      <input type="text" name="departure_date" data-date-format="yyyy-mm-dd"  class="form-control"  id="date-start" placeholder="mm/dd/yyyy"/ value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+30 days')) : $s_date; ?>">
+								                      <input type="text" name="departure_date" data-date-format="yyyy-mm-dd"  class="form-control"  id="date-start" placeholder="mm/dd/yyyy"/ value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+1 days')) : $s_date; ?>">
 								                      <div class="input-group-addon">
 								                        <i class="icon-calendar"></i>
 								                      </div>
@@ -331,7 +331,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 														<?php
 															foreach ($airports as $airport){
 																if ($airport->country_id != 'id') {
-																	$sel = '<option value="'.$airport->airport_code.'" ' .(strcmp($airport->airport_code, $s_arrival)==0 ? 'selected' : ''). ' >'.trim($airport->airport_name).' ('.trim($airport->location_name).', '.trim($airport->country_name).')</option>"';
+																	$sel = '<option value="'.$airport->airport_code.'" ' .(strcmp($airport->airport_code, $s_arrival)==0 ? 'selected' :  ''). ' >'.trim($airport->airport_name).' ('.trim($airport->location_name).', '.trim($airport->country_name).')</option>"';
 																} else {
 																	$sel = '<option value="'.$airport->airport_code.'" ' .(strcmp($airport->airport_code, $s_arrival)==0 ? 'selected' : ''). ' >'.trim($airport->airport_name).' ('.trim($airport->location_name).')</option>"';
 																}
@@ -349,7 +349,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 												<div class="input-field">
 													<label for="date-start" class="lableFont">BERANGKAT:</label>
 													<div class="input-group">
-								                      <input type="text" class="form-control"  name="departure_date_pp" id="date-start" data-date-format="yyyy-mm-dd" placeholder="mm/dd/yyyy" value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+30 days')) : $s_date; ?>"/>
+								                      <input type="text" class="form-control"  name="departure_date_pp" id="date-start" data-date-format="yyyy-mm-dd" placeholder="mm/dd/yyyy" value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+1 days')) : $s_date; ?>"/>
 								                      <div class="input-group-addon">
 								                        <i class="icon-calendar"></i>
 								                      </div>
@@ -361,7 +361,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 												<div class="input-field">
 													<label for="date-end" class="lableFont">KEMBALI:</label>
 													<div class="input-group">
-								                      <input type="text" class="form-control" name="return_date" id="date-end" data-date-format="yyyy-mm-dd" placeholder="mm/dd/yyyy"/ value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+45 days')) : $s_date; ?>">
+								                      <input type="text" class="form-control" name="return_date" id="date-end" data-date-format="yyyy-mm-dd" placeholder="mm/dd/yyyy"/ value="<?php echo (strcmp($s_date, '')==0) ? date('Y-m-d', strtotime('+3 days')) : $s_date; ?>">
 								                      <div class="input-group-addon">
 								                        <i class="icon-calendar"></i>
 								                      </div>

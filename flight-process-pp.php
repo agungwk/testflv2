@@ -1,4 +1,6 @@
 <?php
+
+  start_process:
   header("Access-Control-Allow-Origin: *");
   header("Content-Type: application/json; charset=UTF-8");
 
@@ -31,7 +33,27 @@
   $tiket_token = $json->tiket_token;
 	$asal_next = '0';
 	$tujuan_next = '0';
-
+  if (isset($json->timeone)){
+    $outbond_time_one  = $json->timeone;
+    $outbond_time_two  = $json->timetwo;
+    $inbond_time_one  = $json->timethree;
+    $inbond_time_two  = $json->timefour;
+  } else{
+    $outbond_time_one  = '00:00';
+    $outbond_time_two  = '23:59';
+    $inbond_time_one  = '00:00';
+    $inbond_time_two  = '23:59';
+  }
+  if (isset($json->maskapai_filter)){
+    $maskapai_filter  = $json->maskapai_filter;
+  } else{
+    $maskapai_filter  = [];
+  }
+  if (isset($json->status_transit)){
+    $status_transit  = $json->status_transit;
+  } else{
+    $status_transit  = 'direct';
+  }
   if (!function_exists("curl_init")) die("cURL extension is not installed");
 
   $agent = 'twh:[21060440];[kenzie_tiket];';
@@ -89,6 +111,8 @@
     $counter++;
   }
 
+  $retry_null = 3;
+
   $apikey_sky = 'ba616238434893123338551586683135';
   $url = 'http://partners.api.skyscanner.net/apiservices/pricing/v1.0/?apikey=' . $apikey_sky;
   $ch = curl_init($url);
@@ -105,9 +129,8 @@
            'adults' => $adult,
            'country' => 'ID',
            'locationschema' => 'Iata',
-           'pagesize' => '5',
-           'pageindex' => '0',
            'children' => $child,
+           'infants' => $infant,
            'inbounddate' => $return_date
          )));
   curl_setopt($ch, CURLOPT_HEADER, true);
@@ -143,7 +166,18 @@
     if ($httpcode == 304) {
       continue;
     } else {
-      break;
+      $list_sky = json_decode($r);
+      if (count($list_sky->Itineraries) < 1) {
+        if ($retry_null < 0) {
+          // echo "break :: ".$retry_null."\n";
+          break;
+        }
+        $retry_null = $retry_null - 1;
+        // echo "start_process :: ".$retry_null."\n";
+        goto start_process;
+      } else {
+        break;
+      }
     }
   }
 
@@ -165,7 +199,7 @@
   $leg = array();
 
   foreach ($list_sky->Itineraries as $itenary) {
-    if ($counter > 5) break;
+    if ($counter > 20) break;
     $agent = array();
     foreach ($agents_sky as $agent_sky) {
       if ($agent_sky->Id == $itenary->PricingOptions[0]->Agents[0]) {
@@ -221,39 +255,84 @@
       }
     }
     // echo json_encode( $leg['flights']);
-    $result = array(
-      'departure' => array(
-        'id' => $itenary->OutboundLegId,
-        'flight_number' => $out_leg['flights'][0]['code'],
-        'full_via'=> $origin . " - " . $destination . ' (' . substr($out_leg['departureTime'], 11, 5) . ' - ' . substr($out_leg['arrivalTime'], 11, 5) . ')',
-        'image' => $out_leg['flights'][0]['imageUrl'],
-        'simple_departure_time' => $out_leg['departureTime'],
-        'simple_arrival_time' => $out_leg['arrivalTime'],
-        'transit' => $out_leg['stops'],
-        'duration' => $out_leg['duration'],
-        'origin' => $origin,
-        'destination' => $destination,
-        'price' => $itenary->PricingOptions[0]->Price,
-        'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
-      ),
-      'return' => array(
-        'id' => $itenary->InboundLegId,
-        'flight_number' => $in_leg['flights'][0]['code'],
-        'full_via'=> $origin . " - " . $destination . ' (' . substr($in_leg['departureTime'], 11, 5) . ' - ' . substr($in_leg['arrivalTime'], 11, 5) . ')',
-        'image' => $in_leg['flights'][0]['imageUrl'],
-        'simple_departure_time' => $in_leg['departureTime'],
-        'simple_arrival_time' => $in_leg['arrivalTime'],
-        'transit' => $in_leg['stops'],
-        'duration' => $in_leg['duration'],
-        'origin' => $destination,
-        'destination' => $origin,
-        'price' => $itenary->PricingOptions[0]->Price,
-        'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
-      ),
-      'total_price' => intval($itenary->PricingOptions[0]->Price),
-      'type' => 'sky'
-    );
-    array_push($unsorted_result, $result);
+    if (isset($json->maskapai_filter) || isset($json->timeone) || isset($json->status_transit)){
+      if ((($status_transit == 'direct' && empty($out_leg['stops'])) || ($status_transit == 'stop' && !empty($out_leg['stops'])))
+      && (in_array($out_leg['flights'][0]['name'], $maskapai_filter) || empty($maskapai_filter))
+      && ((int)str_replace(':','',substr($out_leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one) &&  (int)str_replace(':','',substr($out_leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two))
+      && ((int)str_replace(':','',substr($in_leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$inbond_time_one) &&  (int)str_replace(':','',substr($in_leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $inbond_time_two))
+      ){
+        $result = array(
+          'departure' => array(
+            'id' => $itenary->OutboundLegId,
+            'flight_number' => $out_leg['flights'][0]['code'],
+            'full_via'=> $origin . " - " . $destination . ' (' . substr($out_leg['departureTime'], 11, 5) . ' - ' . substr($out_leg['arrivalTime'], 11, 5) . ')',
+            'image' => $out_leg['flights'][0]['imageUrl'],
+            'simple_departure_time' => $out_leg['departureTime'],
+            'simple_arrival_time' => $out_leg['arrivalTime'],
+            'transit' => $out_leg['stops'],
+            'duration' => $out_leg['duration'],
+            'origin' => $origin,
+            'destination' => $destination,
+            'price' => $itenary->PricingOptions[0]->Price,
+            'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+          ),
+          'return' => array(
+            'id' => $itenary->InboundLegId,
+            'flight_number' => $in_leg['flights'][0]['code'],
+            'full_via'=> $origin . " - " . $destination . ' (' . substr($in_leg['departureTime'], 11, 5) . ' - ' . substr($in_leg['arrivalTime'], 11, 5) . ')',
+            'image' => $in_leg['flights'][0]['imageUrl'],
+            'simple_departure_time' => $in_leg['departureTime'],
+            'simple_arrival_time' => $in_leg['arrivalTime'],
+            'transit' => $in_leg['stops'],
+            'duration' => $in_leg['duration'],
+            'origin' => $destination,
+            'destination' => $origin,
+            'price' => $itenary->PricingOptions[0]->Price,
+            'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+          ),
+          'total_price' => intval($itenary->PricingOptions[0]->Price),
+          'type' => 'sky'
+        );
+        array_push($unsorted_result, $result);
+      } else {
+        $counter--;
+      }
+    } else {
+      $result = array(
+        'departure' => array(
+          'id' => $itenary->OutboundLegId,
+          'flight_number' => $out_leg['flights'][0]['code'],
+          'full_via'=> $origin . " - " . $destination . ' (' . substr($out_leg['departureTime'], 11, 5) . ' - ' . substr($out_leg['arrivalTime'], 11, 5) . ')',
+          'image' => $out_leg['flights'][0]['imageUrl'],
+          'simple_departure_time' => $out_leg['departureTime'],
+          'simple_arrival_time' => $out_leg['arrivalTime'],
+          'transit' => $out_leg['stops'],
+          'duration' => $out_leg['duration'],
+          'origin' => $origin,
+          'destination' => $destination,
+          'price' => $itenary->PricingOptions[0]->Price,
+          'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+        ),
+        'return' => array(
+          'id' => $itenary->InboundLegId,
+          'flight_number' => $in_leg['flights'][0]['code'],
+          'full_via'=> $origin . " - " . $destination . ' (' . substr($in_leg['departureTime'], 11, 5) . ' - ' . substr($in_leg['arrivalTime'], 11, 5) . ')',
+          'image' => $in_leg['flights'][0]['imageUrl'],
+          'simple_departure_time' => $in_leg['departureTime'],
+          'simple_arrival_time' => $in_leg['arrivalTime'],
+          'transit' => $in_leg['stops'],
+          'duration' => $in_leg['duration'],
+          'origin' => $destination,
+          'destination' => $origin,
+          'price' => $itenary->PricingOptions[0]->Price,
+          'deepLink' => $itenary->PricingOptions[0]->DeeplinkUrl
+        ),
+        'total_price' => intval($itenary->PricingOptions[0]->Price),
+        'type' => 'sky'
+      );
+      array_push($unsorted_result, $result);
+    }
+
     $counter++;
   }
 
@@ -268,7 +347,8 @@
     'origin_name' => $origin_name,
     'destination_name' => $destination_name,
     'departure_date_formatted' => $departure_date_formatted,
-    'return_date_formatted' => $return_date_formatted
+    'return_date_formatted' => $return_date_formatted,
+    'json_input' => $undecode_json
   );
 
   print json_encode($final_result);

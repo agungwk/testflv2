@@ -1,23 +1,16 @@
-
 <?php
 	session_start();
 	if (!function_exists("curl_init")) die("cURL extension is not installed");
-
 	$formdata = $_POST['formdata'];
 	$formdata = json_decode($formdata);
 	$formdata = json_encode($formdata);
 	$formdata = json_decode($formdata);
-
 	// print_r($formdata);
-
 	// echo json_decode($formdata);
-
 	// header("Access-Control-Allow-Origin: *");
 	// header("Content-Type: application/json; charset=UTF-8");
-
 	// $undecode_json = file_get_contents('php://input');
 	// $json = json_decode($undecode_json);
-
 	// echo json_encode($json);
 	// echo file_get_contents('php://input');;
 ?>
@@ -80,6 +73,17 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 	</head>
 	<body  style="background-color: #7798c5;">
+		<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="loading-modal">
+			<div class="vertical-alignment-helper">
+			  <div class="modal-dialog vertical-align-center" role="document">
+			    <div class="modal-content" style="background:none;position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);">
+			      <div class="image_container" style="background:none">
+							<img src="images/Asset/loading.gif" />
+						</div>
+			    </div>
+			  </div>
+			</div>
+		</div>
 		<header class="navHead">
 			<div class="container">
 				<div style="width:85px; float: left;">
@@ -111,7 +115,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			<div id="MASKAPAI" class="collapse filterCollapse">
 				<div class="row filterBox no-margin">
 					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">MASKAPAI</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#MASKAPAI">DONE</button></div>
+					<div id="btnmaskapai" class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#MASKAPAI">DONE</button></div>
 				</div>
 				<div class="form-group" style="padding:0 15px;">
 					<div style="border-bottom:2px solid #d2cece; padding-top:10px; padding-bottom:5px;">
@@ -125,7 +129,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Asia" name="check" checked />
+							    <input type="checkbox" value="Air Asia" id="Asia" class="checkmaskapai" checked />
 							    <label for="Asia"></label>
 							</label>
 	                    </span>
@@ -138,7 +142,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Batik" name="Batik" checked />
+							    <input type="checkbox" value="Batik Air" id="Batik" class="checkmaskapai" checked />
 							    <label for="Batik"></label>
 							</label>
 	                    </span>
@@ -151,7 +155,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Citilink" name="Citilink" checked />
+							    <input type="checkbox" value="Citilink" id="Citilink" class="checkmaskapai" checked />
 							    <label for="Citilink"></label>
 							</label>
 	                    </span>
@@ -163,33 +167,39 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Garuda" name="Garuda" checked />
+							    <input type="checkbox" value="Garuda Indonesia" id="Garuda" class="checkmaskapai" checked />
 							    <label for="Garuda"></label>
 							</label>
 	                    </span>
                   	</div>
-
-
 
                   	<div Class="listBox">
 						<span class="bold f14" style="float:left;">Lion Air</span>
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Lion" name="Lion" checked />
+							    <input type="checkbox" value="Lion Air" id="Lion" class="checkmaskapai" checked />
 							    <label for="Lion"></label>
 							</label>
 	                    </span>
                   	</div>
+					<div Class="listBox">
+						<span class="bold f14" style="float:left;">Sriwijaya Air</span>
+						<span class="f14" style="float:right;">
 
-
+							<label class="squaredFour">
+							    <input type="checkbox" value="Sriwijaya Air" id="Sriwijaya" class="checkmaskapai" checked />
+							    <label for="Sriwijaya"></label>
+							</label>
+	                    </span>
+                  	</div>
 
                   	<div Class="listBox">
 						<span class="bold f14" style="float:left;">Malaysia Airlines</span>
 						<span class="f14" style="float:right;">
 
 							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" name="Malaysia" checked />
+							    <input type="checkbox" value="Malaysia Airlines" id="Malaysia" class="checkmaskapai"  checked />
 							    <label for="Malaysia"></label>
 							</label>
 	                    </span>
@@ -201,7 +211,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			<div id="WAKTU" class="collapse filterCollapse">
 				<div class="row filterBox no-margin">
 					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">WAKTU</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#WAKTU">DONE</button></div>
+					<div id="btnwaktu" class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#WAKTU">DONE</button></div>
 				</div>
 
 
@@ -212,15 +222,15 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 					<div style="padding:10px 0">
 						<div style="font-size:14px; color:#000000">Outbond</div>
-						<div style="font-size:12px;">00:00 - 23:59</div>
-						<input id="ex1" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
+						<div class="time1" style="font-size:12px;">00:00 - 23:59</div>
+						<input id="ex1" type="text" class="span2" value="" data-slider-min="0" data-slider-max="1440" data-slider-step="2" data-slider-value="[0,1440]"/>
 					</div>
 
 
 					<div style="padding:10px 0">
 						<div style="font-size:14px; color:#000000">Return</div>
-						<div style="font-size:12px;">00:00 - 23:59</div>
-						<input id="ex2" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
+						<div class="time2" style="font-size:12px;">00:00 - 23:59</div>
+						<input id="ex2" type="text" class="span2" value="" data-slider-min="0" data-slider-max="1440" data-slider-step="2" data-slider-value="[0,1440]"/>
 					</div>
 				</div>
 			</div>
@@ -287,8 +297,8 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 					</li>
 					<li role="presentation" style="width: 35%; text-align: center; float:right;">
 						<!--<a class="tiketCom" href="#tiketCom" aria-controls="hotels" role="tab" data-toggle="tab" style="background-color: #fff !important; color: rgba(255, 255, 255, 0) !important;">-->
-						<a class="tiketCom" href="" aria-controls="hotels" role="tab" data-toggle="tab" style="background-color: #fff !important; color: rgba(255, 255, 255, 0) !important;">
-							Tiket
+						<!--<a class="tiketCom" href="" aria-controls="hotels" role="tab" data-toggle="tab" style="background-color: #fff !important; color: rgba(255, 255, 255, 0) !important;"> -->
+							
 						</a>
 					</li>
 				</ul>
@@ -537,41 +547,72 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+	<script src="js/jquery.redirect.js"></script>
 
 	<script>
-
 		$(document).ready(function(){
-
 			$(".select2").select2({
                 placeholder: "",
                 //allowClear: true
 			});
-
-			// // With JQuery
-			// $('#ex1').slider({
-			// 	formatter: function(value) {
-			// 		return 'Current value: ' + value;
-			// 	}
-			// });
-			//
-			// // Without JQuery
-			// var slider = new Slider('#ex1', {
-			// 	formatter: function(value) {
-			// 		return 'Current value: ' + value;
-			// 	}
-			// });
-			//
-			//
-			// // With JQuery
 			$("#ex1").slider({});
 			$("#ex2").slider({});
-			//
-			// // Without JQuery
-			// var slider = new Slider('#ex2', {});
-
+			function number_to_time(val){
+				var min_num = val;
+				var hours   = Math.floor(min_num / 60);
+				var minutes = Math.floor(min_num - (hours * 60)) ;
+				if (hours   < 10) {hours   = "0"+hours;}
+				if (minutes < 10) {minutes = "0"+minutes;}
+				return hours+':'+minutes
+			};
+			var data = JSON.stringify(<?php echo $formdata->json_input ; ?>);
+			$('#ex1').on('slide', function(slider){
+				var timeone = number_to_time(slider.value[0]);
+				var timetwo = number_to_time(slider.value[1]);
+				$(".time1").html(timeone + " - " + timetwo);
+			});
+			$('#ex2').on('slide', function(slider){
+				var timeone = number_to_time(slider.value[0]);
+				var timetwo = number_to_time(slider.value[1]);
+				$(".time2").html(timeone + " - " + timetwo);
+			});
+			$('#btnwaktu').click(function(e){
+				e.preventDefault();
+				$('#loading-modal').modal({
+					keyboard: false,
+					backdrop: "static"
+				});
+				var data_json = $.parseJSON(data);
+				var time_out = $('#ex1').data('slider').getValue();
+				var time_in = $('#ex2').data('slider').getValue();
+				data_json['timeone'] = number_to_time(time_out[0]);
+				data_json['timetwo'] = number_to_time(time_out[1]);
+				data_json['timethree'] = number_to_time(time_in[0]);
+				data_json['timefour'] = number_to_time(time_in[1]);
+				var jdata = JSON.stringify(data_json);
+				var jqxhr = $.post( "flight-process-pp.php", jdata, function(jdata) {
+					$.redirect('result_pp.php', {'formdata' : JSON.stringify(jdata)});
+				})
+			});
+			$('#btnmaskapai').click(function(e){
+				e.preventDefault();
+				$('#loading-modal').modal({
+					keyboard: false,
+					backdrop: "static"
+				});
+				var data_json = $.parseJSON(data);
+				var maskapai = [];
+            	$.each($(".checkmaskapai:checked"), function(){
+                	maskapai.push($(this).val());
+            	});
+				data_json['maskapai_filter'] = maskapai;
+				var jdata = JSON.stringify(data_json);
+				var jqxhr = $.post( "flight-process-pp.php", jdata, function(jdata) {
+					$.redirect('result_pp.php', {'formdata' : JSON.stringify(jdata)});
+				})
+				console.log(maskapai);
+			});
 		});
-
-
 	</script>
 
 
@@ -581,11 +622,9 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
     // Initialize a new plugin instance for all
     // e.g. $('input[type="range"]') elements.
     $('input[type="range"]').rangeslider();
-
     // Destroy all plugin instances created from the
     // e.g. $('input[type="range"]') elements.
     $('input[type="range"]').rangeslider('destroy');
-
     // Update all rangeslider instances for all
     // e.g. $('input[type="range"]') elements.
     // Usefull if you changed some attributes e.g. `min` or `max` etc.
@@ -610,16 +649,12 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 					$('#return-div').hide("slow");
 				}
 			});
-
 			$('#form-fl').submit(function(e) {
 				e.preventDefault();
 				alert('ooi');
 			});
-
 		});
-
 		$()
-
 		</script>
 
 
