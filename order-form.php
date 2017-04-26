@@ -6,6 +6,7 @@ $formdata = $_POST['formdata'];
 $formdata = json_decode($formdata);
 $formdata = json_encode($formdata);
 $formdata = json_decode($formdata);
+$request_json = $formdata->request;
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -86,17 +87,22 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 			<div class="container animate-box" style="background-color: #7798c5;">
 				<div class="row mt no-margin animate-box">
-					<div class="col-xs-4 mt alternate no-padding" style="padding-right: 10px !important;">
+					<div class="col-xs-4 mt no-padding" style="padding-right: 10px !important;">
 						<label for="class" class="lableFont">TITEL:</label>
-						<select class="cs-select cs-skin-border" id="contact-title">
+						<!-- <select class="cs-select cs-skin-border" id="contact-title">
+							<option value="TUAN" selected>TUAN</option>
+							<option value="NYONYA">NYONYA</option>
+						</select> -->
+						<select id="contact-title" name="conSalutation" class="form-control f14Bold" style="padding: 10px 5px; border-radius: 0;">
 							<option value="TUAN" selected>TUAN</option>
 							<option value="NYONYA">NYONYA</option>
 						</select>
 					</div>
 
 					<div class="col-xs-8 mt alternate no-padding">
+						<input type="hidden" name="conEmailAddress" value="a2c6dfee7e69677cc7c9@cloudmailin.net" />
 						<label for="class" class="lableFont">NAMA LENGKAP:</label>
-						<input type="text" class="form-control noRadius" id="contact-full-name" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
+						<input type="text" class="form-control noRadius" id="contact-full-name" name="conFirstName" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
 					</div>
 				</div>
 
@@ -105,64 +111,101 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 					<label for="class" class="lableFont">NO. TELEPON:</label>
 					<div class="row no-margin">
 						<div class="col-xs-3 mt alternate no-padding" style="padding-right: 10px !important;">
-							<input type="text" class="form-control noRadius" placeholder="62" style="padding: 10px;" readonly>
+							<input type="number" class="form-control noRadius" placeholder="62" style="padding: 10px;" readonly>
 						</div>
 
 						<div class="col-xs-9 mt alternate no-padding">
-							<input type="text" class="form-control noRadius" id="contact-phone-no" placeholder="" style="padding: 10px;">
+							<input type="text" class="form-control noRadius" id="contact-phone-no" placeholder="" style="padding: 10px;" name="conPhone" >
 						</div>
 					</div>
 				</div>
 			</div>
 
+			<?php for ($x = 0; $x < $request_json->adult; $x++) { ?>
+				<div class="container animate-box">
+					<div class="headList">DETAIL PENUMPANG DEWASA <?php echo $x+1; ?></div>
 
-			<div class="container animate-box">
-				<div class="headList">DETAIL PENUMPANG 1</div>
+					<?php if ($x == 0) { ?>
+						<span class="f14">
+							<label class="squaredFourWhite">
+								<input type="checkbox" id="check_same_id" />
+								<label for="check_same_id"></label>
+							</label>
+							<label class="f12 labelCheck">SAMA DENGAN KONTAK</label>
+						</span>
+					<?php } ?>
 
-				<span class="f14">
-					<label class="squaredFourWhite">
-						<input type="checkbox" id="check_same_id" name="check_same_id"/>
-						<label for="check_same_id"></label>
-					</label>
-					<label class="f12 labelCheck">SAMA DENGAN KONTAK</label>
-				</span>
+					<div class="row mt no-margin animate-box">
+						<div class="col-xs-4 mt no-padding" style="padding-right: 10px !important;">
+							<label for="class" class="lableFont">TITEL:</label>
+							<!-- <select class="cs-select cs-skin-border" name="adult-passenger-title">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select> -->
+							<select name="titlea<?php echo $x+1; ?>" class="form-control f14Bold" style="padding: 10px 5px; border-radius: 0;">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select>
+						</div>
 
-				<?php ?>
-				<div class="row mt no-margin animate-box">
-					<div class="col-xs-4 mt alternate no-padding" style="padding-right: 10px !important;">
-						<label for="class" class="lableFont">TITEL:</label>
-						<select class="cs-select cs-skin-border" name="adult-passenger-title[0]">
-							<option value="TUAN">TUAN</option>
-							<option value="NYONYA">NYONYA</option>
-						</select>
-					</div>
-
-					<div class="col-xs-8 mt alternate no-padding">
-						<label for="class" class="lableFont">NAMA LENGKAP:</label>
-						<input type="text" class="form-control noRadius" name="adult-passenger-name" id="from-place" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
-					</div>
-				</div>
-
-
-
-
-				<div class="headList">DETAIL PENUMPANG 2</div>
-
-				<div class="row mt no-margin animate-box">
-					<div class="col-xs-4 mt alternate no-padding" style="padding-right: 10px !important;">
-						<label for="class" class="lableFont">TITEL:</label>
-						<select class="cs-select cs-skin-border" name="adult-passenger-title[1]">
-							<option value="TUAN">TUAN</option>
-							<option value="NYONYA">NYONYA</option>
-						</select>
-					</div>
-
-					<div class="col-xs-8 mt alternate no-padding">
-						<label for="class" class="lableFont">NAMA LENGKAP:</label>
-						<input type="text" class="form-control noRadius" id="from-place" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
+						<div class="col-xs-8 mt alternate no-padding">
+							<label for="class" class="lableFont">NAMA LENGKAP:</label>
+							<input type="text" class="form-control noRadius" name="firstnamea<?php echo $x+1; ?>" id="from-place" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
+						</div>
 					</div>
 				</div>
+			<?php } ?>
 
+			<?php for ($x = 0; $x < $request_json->child; $x++) { ?>
+				<div class="container animate-box">
+					<div class="headList">DETAIL PENUMPANG ANAK <?php echo $x+1; ?></div>
+
+					<div class="row mt no-margin animate-box">
+						<div class="col-xs-4 mt no-padding" style="padding-right: 10px !important;">
+							<label for="class" class="lableFont">TITEL:</label>
+							<!-- <select class="cs-select cs-skin-border" name="adult-passenger-title">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select> -->
+							<select name="titlec<?php echo $x+1; ?>" class="form-control f14Bold" style="padding: 10px 5px; border-radius: 0;">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select>
+						</div>
+
+						<div class="col-xs-8 mt alternate no-padding">
+							<label for="class" class="lableFont">NAMA LENGKAP:</label>
+							<input type="text" class="form-control noRadius" name="firstnamec<?php echo $x+1; ?>" id="from-place" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+
+			<?php for ($x = 0; $x < $request_json->infant; $x++) { ?>
+				<div class="container animate-box">
+					<div class="headList">DETAIL PENUMPANG BAYI <?php echo $x+1; ?></div>
+
+					<div class="row mt no-margin animate-box">
+						<div class="col-xs-4 mt no-padding" style="padding-right: 10px !important;">
+							<label for="class" class="lableFont">TITEL:</label>
+							<!-- <select class="cs-select cs-skin-border" name="adult-passenger-title">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select> -->
+							<select name="titlei<?php echo $x+1; ?>" class="form-control f14Bold" style="padding: 10px 5px; border-radius: 0;">
+								<option value="TUAN">TUAN</option>
+								<option value="NYONYA">NYONYA</option>
+							</select>
+						</div>
+
+						<div class="col-xs-8 mt alternate no-padding">
+							<input type="hidden" name="parenti<?php echo $x+1; ?>" value="<?php echo $x+1; ?>" />
+							<label for="class" class="lableFont">NAMA LENGKAP:</label>
+							<input type="text" class="form-control noRadius" name="firstnamei<?php echo $x+1; ?>" id="from-place" placeholder="ISI SESUAI KTP/SIM/PASPOR" style="padding: 10px;">
+						</div>
+					</div>
+				</div>
+			<?php } ?>
 
 				<div class="col-xs-12" style="text-align:center; width:100%;">
 					<!-- <button onClick="window.location.href='order-form.html'" style="margin: 20px auto; padding: 5px; font-size: 14px; width: 70%;" type="submit" class="btn btn-primary btn-block" value="PESAN">PESAN </button>   -->
@@ -229,15 +272,51 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				var contact_phone_no = $('#contact-phone-no').val();
 				console.log(contact_title);
 
-				console.log($('input[name="adult-passenger-title"]')[0]);
-				$('input[name="adult-passenger-name"]')[0].value = contact_full_name;
-				$('input[name="adult-passenger-title"]').get(0).val(contact_title);
+				// console.log($('input[name="titlea1"]')[0]);
+				// console.log($('select[name="titlea1"]')[0]);
+				$('input[name="firstnamea1"]')[0].value = contact_full_name;
+				// $('select[name="adult-passenger-title"]')[0].value = contact_title;
+				$('select[name$="titlea1"]').eq(0).val(contact_title);
+				// $('select[name$="adult-passenger-title"]').eq(0).removeAttr('selected').find(contact_title).attr('selected', 'selected');
 				// console.log('input[name="adult-passenger-title"] option[value='+contact_title+']');
 				// $('input[name="adult-passenger-title"] option[value='+contact_title+']').attr('selected','selected').change();
 			} else {
 				$('input[name="adult-passenger-name"]')[0].value = "";
-				$('input[name="adult-passenger-title"]')[0].val(contact_title);
+				// $('select[name$="adult-passenger-title"]').eq(0).val("");
 			}
+		});
+
+		$("#form-contact-passenger").submit(function(e){
+			e.preventDefault();
+			var json_object_result = $(this).serializeArray();
+			var data = {
+				"formdata" : json_object_result,
+				"flight_data" : <?php echo json_encode($formdata); ?>,
+				"msisdn" : "<?php echo $formdata->result->msisdn; ?>"
+			};
+			console.log(data);
+			console.log(JSON.stringify(data));
+
+			// var jqxhr = $.post( "http://139.59.244.156:8001/postfltiket", json_object_result, function(result_data) {
+			// 	// alert( "success" );
+			// 	// alert(JSON.stringify(data));
+			// 	console.log(result_data);
+			// 	// $.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
+			// 	header("Location:https://line.me/R/ti/p/%40bangjoni");
+			// 	// $.postdatas({
+			// 	// 	url:'flight-result-bj.php',
+			// 	// 	datas:data
+			// 	// });
+			// 	// postData('flight-result-bj.php', 'post', data);
+			// })
+			// .fail(function(e) {
+			// 	// alert("error");
+			// 	// alert(JSON.stringify(e));
+			// 	console.log(data);
+			// })
+			// .always(function() {
+			// 	$('#loading-modal').modal('hide');
+			// });
 		});
 	});
 	</script>

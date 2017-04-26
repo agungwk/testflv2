@@ -641,6 +641,7 @@ $(document).ready(function(){
 					v.destination_name = "<?php echo $formdata->destination_name; ?>";
 					v.origin_name = "<?php echo $formdata->origin_name; ?>";
 					v.departure_date_formatted = "<?php echo $formdata->departure_date_formatted; ?>";
+					v.msisdn = "<?php echo $formdata->msisdn; ?>";
 					var post_data = {
 						"result" : v,
 						"request" : $.parseJSON(results.json_input)

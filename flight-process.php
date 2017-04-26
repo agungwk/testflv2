@@ -10,6 +10,7 @@
   $json = json_decode($undecode_json);
 
   // print_r($undecode_json);
+  $msisdn = $json->msisdn;
 
   $origin = $json->origin;
   $destination = $json->destination;
@@ -53,7 +54,10 @@
 
   $agent = 'twh:[21060440];[kenzie_tiket];';
 
-  $url = 'http://api.tiket.com/search/flight?d=' . $origin . '&a=' . $destination . '&date=' . $departure_date . '&adult=' . $adult .  '&child=' . $child . '&infant=' . $infant . '&token=' . $tiket_token . '&v=3&output=json';
+// sandbox tiket.com
+  // $url = 'http://api-sandbox.tiket.com/search/flight?d=' . $origin . '&a=' . $destination . '&date=' . $departure_date . '&adult=' . $adult .  '&child=' . $child . '&infant=' . $infant . '&token=' . $tiket_token . '&v=3&output=json';
+  // $url = 'http://api-sandbox.tiket.com/search/flight?d=' . $origin . '&a=' . $destination . '&date=' . $departure_date . '&ret_date=' . $return_date . '&adult=' . $adult .  '&child=' . $child . '&infant=' . $infant . '&token=' . $tiket_token . '&v=3&output=json';
+  $url = 'http://api.tiket.com/search/flight?d=' . $origin . '&a=' . $destination . '&date=' . $departure_date . '&adult=' . $adult .  '&child=' . $child . '&infant=' . $infant . '&token=' . $tiket_token . '&v=1&output=json';
   // $url = 'http://api.tiket.com/search/flight?d=' . $origin . '&a=' . $destination . '&date=' . $departure_date . '&ret_date=' . $return_date . '&adult=' . $adult .  '&child=' . $child . '&infant=' . $infant . '&token=' . $tiket_token . '&v=3&output=json';
   // print_r($url);
   $ch = curl_init($url);
@@ -100,7 +104,9 @@
             'origin' => $origin,
             'destination' => $destination,
             'duration' => $tiket->duration,
-            'price' => $tiket->price_value
+            'price' => $tiket->price_value,
+            'airlines_name' => $tiket->airlines_name,
+            'original_result' => $tiket
           ),
           'total_price' => intval($tiket->price_value),
           'type' => 'tiket'
@@ -122,7 +128,8 @@
           'origin' => $origin,
           'destination' => $destination,
           'duration' => $tiket->duration,
-          'price' => $tiket->price_value
+          'price' => $tiket->price_value,
+          'original_result' => $tiket
         ),
         'total_price' => intval($tiket->price_value),
         'type' => 'tiket'
@@ -320,7 +327,8 @@
     'origin_name' => $origin_name,
     'destination_name' => $destination_name,
     'departure_date_formatted' => $departure_date_formatted,
-    'json_input' => $undecode_json
+    'json_input' => $undecode_json,
+    'msisdn' => $msisdn
   );
 
   print json_encode($final_result);

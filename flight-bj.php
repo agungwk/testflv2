@@ -24,6 +24,7 @@ if (isset($_GET['date'])) {
 $agent = 'twh:[21060440];[kenzie_tiket];';
 
 $url = 'https://api.tiket.com/apiv1/payexpress?method=getToken&secretkey=a2d4c49553532e84867c1b07be914f97&output=json';
+// $url = 'https://api.tiket.com/apiv1/payexpress?method=getToken&secretkey=a2d4c49553532e84867c1b07be914f97&output=json';
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);
@@ -555,7 +556,8 @@ $(document).ready(function(){
 		"flight_time" : "",
 		"transit" : 0,
 		"roundtrip" : $("input[name=roundtrip]").val(),
-		"tiket_token" : "<?php echo $token; ?>"
+		"tiket_token" : "<?php echo $token; ?>",
+		"msisdn" : "<?php echo $msisdn; ?>"
 	});
 
 	//alert(data);
@@ -640,7 +642,8 @@ $(document).ready(function(){
 		"flight_time" : "",
 		"transit" : 0,
 		"roundtrip" : 1,
-		"tiket_token" : "<?php echo $token; ?>"
+		"tiket_token" : "<?php echo $token; ?>",
+		"msisdn" : "<?php echo $msisdn; ?>"
 	});
 
 	console.log(data);

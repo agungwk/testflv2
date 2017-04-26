@@ -185,10 +185,11 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 						<span class="clearAll" style="padding:0;">DEPARTURE TIMES</span>
 					</div>
 
+					<div style="padding:10px 0">
 						<div style="font-size:14px; color:#000000">Outbond</div>
 						<div style="font-size:12px;">00:00 - 23:59</div>
 						<input id="ex1" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
-
+					</div>
 
 
 					<div style="padding:10px 0">
@@ -302,7 +303,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 														</div>
 													</div>
 													<div class="col-xs-3 arrive">
-														<span class="times">08.30000</span>
+														<span class="times">08.30</span>
 														<span class="stop-station" data-id="10485">CGK</span>
 													</div>
 												</div>
@@ -356,93 +357,214 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 
 
-									 <div role="tabpanel" class="tab-pane" id="tiketCom">
-									 	<div class="row">
-									 		<div class="col-xs-12 no-padding">
-									 			<div class="col-xs-6" style="padding: 2px !important;">
-									 				<div class="headResult">PERGI</div>
-									 		<div class="resultBox" >
-												<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
+	<div role="tabpanel" class="tab-pane" id="tiketCom">
+		<div class="row">
+			<div class="col-xs-12 no-padding">
+				<div class="col-xs-6" style="padding: 2px !important;">
+					<div class="headResult">PERGI</div>
 
-												<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
-													<div class="col-xs-3 depart2">
-														<span class="times2">08.30</span>
-														<span class="stop-station2" data-id="10485">CGK</span>
-													</div>
+					<div class="no-padding no-margin">
 
-													<div class="col-xs-6 stopBox2">
-														<div class="stops">
-															<ul class="stop-line">
-																<img class="chevright" src="images/Asset/cheright.png">
-															</ul>
+						<div class="cat_check">
+							<div class="col-xs-12 marginB5 no-padding">
+								<div id="checkboxes">
+									<input type="checkbox" name="rGroup" class="check_cat" value="result" id="r1"/>
+									<div class="check_overlay">
+										<i class="icon-checkmark"></i>
+									</div>
+								<label class="whatever" for="r3">
+									<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
 
-															<div class="leg-stops">
-																<span class="leg-stops-red leg-stops-label">DIRECT</span>
-															</div>
-														</div>
-													</div>
-
-													<div class="col-xs-3 arrive2">
-														<span class="times2">08.30</span>
-														<span class="stop-station2" data-id="10485">CGK</span>
-													</div>
-												</div>
-
-												<div style="width: 100%; padding-top: 10px; display: inline-block;">
-													<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
-													<div class="col-xs-6 no-padding">
-														<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
-													</div>
-												</div>
-											</div>
-
-									 			</div>
-
-									 			<div class="col-xs-6" style="padding: 2px !important;">
-									 				<div class="headResult">PULANG</div>
-
-									 				<div class="resultBox" >
-												<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
-
-												<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
-													<div class="col-xs-3 depart2">
-														<span class="times2">08.30</span>
-														<span class="stop-station2" data-id="10485">CGK</span>
-													</div>
-
-													<div class="col-xs-6 stopBox2">
-														<div class="stops">
-															<ul class="stop-line">
-																<img class="chevright" src="images/Asset/cheright.png">
-															</ul>
-
-															<div class="leg-stops">
-																<span class="leg-stops-red leg-stops-label">DIRECT</span>
-															</div>
-														</div>
-													</div>
-
-													<div class="col-xs-3 arrive2">
-														<span class="times2">08.30</span>
-														<span class="stop-station2" data-id="10485">CGK</span>
-													</div>
-												</div>
-
-												<div style="width: 100%; padding-top: 10px; display: inline-block;">
-													<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
-													<div class="col-xs-6 no-padding">
-														<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
-													</div>
-												</div>
-											</div>
-
-									 			</div>
-
-									 		</div>
-
-
+									<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
+										<div class="col-xs-3 depart2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
 										</div>
-									 </div>
+
+										<div class="col-xs-6 stopBox2">
+											<div class="stops">
+												<ul class="stop-line">
+													<img class="chevright" src="images/Asset/cheright.png">
+												</ul>
+
+												<div class="leg-stops">
+													<span class="leg-stops-red leg-stops-label">DIRECT</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-3 arrive2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+									</div>
+
+									<div style="width: 100%; padding-top: 10px; display: inline-block;">
+										<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
+										<div class="col-xs-6 no-padding">
+											<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
+										</div>
+									</div>
+								</label>
+								</div><!--checkboxes end-->
+							</div><!--col-sm-* end-->
+
+						</div><!--row end-->
+
+						<div class="cat_check">
+							<div class="col-xs-12 marginB5 no-padding">
+								<div id="checkboxes">
+									<input type="checkbox" name="rGroup" class="check_cat" value="result" id="r1"/>
+									<div class="check_overlay">
+										<i class="icon-checkmark"></i>
+									</div>
+								<label class="whatever" for="r3">
+									<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
+
+									<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
+										<div class="col-xs-3 depart2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+
+										<div class="col-xs-6 stopBox2">
+											<div class="stops">
+												<ul class="stop-line">
+													<img class="chevright" src="images/Asset/cheright.png">
+												</ul>
+
+												<div class="leg-stops">
+													<span class="leg-stops-red leg-stops-label">DIRECT</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-3 arrive2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+									</div>
+
+									<div style="width: 100%; padding-top: 10px; display: inline-block;">
+										<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
+										<div class="col-xs-6 no-padding">
+											<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
+										</div>
+									</div>
+								</label>
+								</div><!--checkboxes end-->
+							</div><!--col-sm-* end-->
+
+						</div><!--row end-->
+
+					</div><!--container end-->
+				</div>
+
+				<div class="col-xs-6" style="padding: 2px !important;">
+					<div class="headResult">PULANG</div>
+
+					<div class="no-padding no-margin">
+
+						<div class="cat_check">
+							<div class="col-xs-12 marginB5 no-padding">
+								<div id="checkboxes">
+									<input type="checkbox" name="rGroup" class="check_cat" value="result" id="r1"/>
+									<div class="check_overlay">
+										<i class="icon-checkmark"></i>
+									</div>
+								<label class="whatever" for="r3">
+									<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
+
+									<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
+										<div class="col-xs-3 depart2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+
+										<div class="col-xs-6 stopBox2">
+											<div class="stops">
+												<ul class="stop-line">
+													<img class="chevright" src="images/Asset/cheright.png">
+												</ul>
+
+												<div class="leg-stops">
+													<span class="leg-stops-red leg-stops-label">DIRECT</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-3 arrive2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+									</div>
+
+									<div style="width: 100%; padding-top: 10px; display: inline-block;">
+										<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
+										<div class="col-xs-6 no-padding">
+											<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
+										</div>
+									</div>
+								</label>
+								</div><!--checkboxes end-->
+							</div><!--col-sm-* end-->
+
+						</div><!--row end-->
+
+						<div class="cat_check">
+							<div class="col-xs-12 marginB5 no-padding" id="show">
+								<div id="checkboxes">
+									<input type="checkbox" name="rGroup" class="check_cat" value="result" id="r1"/>
+									<div class="check_overlay">
+										<i class="icon-checkmark"></i>
+									</div>
+								<label class="whatever" for="r3">
+									<img src="images/Asset/lionTiket.png" style="height:auto; width: 70px; text-align:center;">
+
+									<div style="width:100%; float: left; border-bottom: 1px solid #e0dcdc; padding-bottom: 5px;">
+										<div class="col-xs-3 depart2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+
+										<div class="col-xs-6 stopBox2">
+											<div class="stops">
+												<ul class="stop-line">
+													<img class="chevright" src="images/Asset/cheright.png">
+												</ul>
+
+												<div class="leg-stops">
+													<span class="leg-stops-red leg-stops-label">DIRECT</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xs-3 arrive2">
+											<span class="times2">08.30</span>
+											<span class="stop-station2" data-id="10485">CGK</span>
+										</div>
+									</div>
+
+									<div style="width: 100%; padding-top: 10px; display: inline-block;">
+										<div class="col-xs-6 no-padding price2">Rp.342.242/org</div>
+										<div class="col-xs-6 no-padding">
+											<input style="padding: 2px 5px; font-size: 10px; width: 70%; float: right;" type="submit" class="btn btn-primary btn-block" value="PESAN">
+										</div>
+									</div>
+								</label>
+								</div><!--checkboxes end-->
+							</div><!--col-sm-* end-->
+
+						</div><!--row end-->
+
+					</div><!--container end-->
+				</div>
+			</div>
+		</div>
+
+
+		<div id="btnPesan" class="btnDock" style="display:none;">PESAN</div>
+	</div>
 								</div> <!-- Tab content -->
 
 								</div>
@@ -506,21 +628,32 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 	<script>
+	$(document).ready(function($) {
+	  $('#checkboxes label').click(function(){
+			$(this).prevUntil("input").prop('checked', true);
+			$(this).prev().show();
+			//console.log($(this).closest('input').id);
+		}); //document-ready end
+		$('#checkboxes .check_overlay').click(function(){
+			$(this).prev().prop('checked', false);
+			$(this).hide();
+		});
 
+	}); //document-ready endif
+	$(document).ready(function(){
+    $("#hide").click(function(){
+        $("#btnPesan").hide();
+    });
+    $("#show").click(function(){
+        $("#btnPesan").show();
+    });
+});
 
 		$(document).ready(function(){
-
-			//  console.log('test');
-			//  var x = $("#ex1").val();
-			 //
-			//  console.log(x);
-
-
 			$(".select2").select2({
                 placeholder: "",
                 //allowClear: true
 			});
-
 			// // With JQuery
 			// $('#ex1').slider({
 			// 	formatter: function(value) {
@@ -542,10 +675,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			//
 			// // Without JQuery
 			// var slider = new Slider('#ex2', {});
-
 		});
-
-
 	</script>
 
 
@@ -555,11 +685,9 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
     // Initialize a new plugin instance for all
     // e.g. $('input[type="range"]') elements.
     $('input[type="range"]').rangeslider();
-
     // Destroy all plugin instances created from the
     // e.g. $('input[type="range"]') elements.
     $('input[type="range"]').rangeslider('destroy');
-
     // Update all rangeslider instances for all
     // e.g. $('input[type="range"]') elements.
     // Usefull if you changed some attributes e.g. `min` or `max` etc.
