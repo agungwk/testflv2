@@ -297,26 +297,26 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			console.log(data);
 			console.log(JSON.stringify(data));
 
-			// var jqxhr = $.post( "http://139.59.244.156:8001/postfltiket", json_object_result, function(result_data) {
-			// 	// alert( "success" );
-			// 	// alert(JSON.stringify(data));
-			// 	console.log(result_data);
-			// 	// $.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
-			// 	header("Location:https://line.me/R/ti/p/%40bangjoni");
-			// 	// $.postdatas({
-			// 	// 	url:'flight-result-bj.php',
-			// 	// 	datas:data
-			// 	// });
-			// 	// postData('flight-result-bj.php', 'post', data);
-			// })
-			// .fail(function(e) {
-			// 	// alert("error");
-			// 	// alert(JSON.stringify(e));
-			// 	console.log(data);
-			// })
-			// .always(function() {
-			// 	$('#loading-modal').modal('hide');
-			// });
+			var jqxhr = $.post( "https://bangjoni.com/postfltiket", data, function(data) {
+				// alert( "success" );
+				// alert(JSON.stringify(data));
+				console.log(result_data);
+				// $.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
+				header("Location:https://line.me/R/ti/p/%40bangjoni");
+				// $.postdatas({
+				// 	url:'flight-result-bj.php',
+				// 	datas:data
+				// });
+				// postData('flight-result-bj.php', 'post', data);
+			})
+			.fail(function(e) {
+				// alert("error");
+				// alert(JSON.stringify(e));
+				console.log(data);
+			})
+			.always(function() {
+				$('#loading-modal').modal('hide');
+			});
 		});
 	});
 	</script>
