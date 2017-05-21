@@ -644,7 +644,8 @@ $(document).ready(function(){
 					v.msisdn = "<?php echo $formdata->msisdn; ?>";
 					var post_data = {
 						"result" : v,
-						"request" : $.parseJSON(results.json_input)
+						"request" : $.parseJSON(results.json_input),
+						"pp" : false
 					};
 					console.log(post_data);
 					$.redirect('confirmation.php', {'formdata' : JSON.stringify(post_data)});

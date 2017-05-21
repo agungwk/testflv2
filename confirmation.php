@@ -258,7 +258,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				</div>
 
 				<div>
-					<img src="images/Asset/lionTiket.png" style="height: 20px; margin: 10px 0;">
+					<img src="<?php echo $formdata->result->departure->image; ?>" style="height:auto; width: 70px; margin: 10px 0;">
 				</div>
 
 				<div style="width: 100%; float: left; border-bottom: 1px solid #999999; padding-bottom: 5px;">

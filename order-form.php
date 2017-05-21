@@ -262,7 +262,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			//allowClear: true
 		});
 
-		alert('asduuu');
+		// alert('asduuu');
 
 		$("#check_same_id").change(function(){
 			var chckValue = $(this).is(':checked');
@@ -297,26 +297,46 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			console.log(data);
 			console.log(JSON.stringify(data));
 
-			var jqxhr = $.post( "https://bangjoni.com/postfltiket", data, function(data) {
-				// alert( "success" );
-				// alert(JSON.stringify(data));
-				console.log(result_data);
-				// $.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
-				header("Location:https://line.me/R/ti/p/%40bangjoni");
-				// $.postdatas({
-				// 	url:'flight-result-bj.php',
-				// 	datas:data
-				// });
-				// postData('flight-result-bj.php', 'post', data);
-			})
-			.fail(function(e) {
-				// alert("error");
-				// alert(JSON.stringify(e));
-				console.log(data);
-			})
-			.always(function() {
-				$('#loading-modal').modal('hide');
+			var request = $.ajax({
+			  url: "https://bangjoni.com/postfltiket",
+				type: "POST",
+				contentType: "application/json; charset=utf-8",
+			  data : JSON.stringify(data),
+			  dataType: "json"
 			});
+
+			request.success(function( msg ) {
+			  console.log(msg);
+				// header("Location:https://line.me/R/ti/p/%40bangjoni");
+				if (msg == 'OK') {
+					window.location.replace("https://line.me/R/ti/p/%40bangjoni");
+				}
+			});
+
+			request.fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+			});
+
+			// var jqxhr = $.post( "https://bangjoni.com/postfltiket", data, function(data) {
+			// 	// alert( "success" );
+			// 	// alert(JSON.stringify(data));
+			// 	console.log(result_data);
+			// 	// $.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
+			// 	header("Location:https://line.me/R/ti/p/%40bangjoni");
+			// 	// $.postdatas({
+			// 	// 	url:'flight-result-bj.php',
+			// 	// 	datas:data
+			// 	// });
+			// 	// postData('flight-result-bj.php', 'post', data);
+			// })
+			// .fail(function(e) {
+			// 	// alert("error");
+			// 	// alert(JSON.stringify(e));
+			// 	console.log(data);
+			// })
+			// .always(function() {
+			// 	$('#loading-modal').modal('hide');
+			// });
 		});
 	});
 	</script>

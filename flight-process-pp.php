@@ -11,6 +11,7 @@
 
   // print_r($undecode_json);
 
+  $msisdn = $json->msisdn;
   $origin = $json->origin;
   $destination = $json->destination;
   $adult = $json->adult;
@@ -77,7 +78,8 @@
   $list_tiket = json_decode($r);
   // print_r($list_tiket);
   $token = $list_tiket->token;
-  $list_tikets = $list_tiket->departures->result;
+  $list_tiket_dep = $list_tiket->departures->result;
+  $list_tiket_ret = $list_tiket->returns->result;
   $origin_name = $list_tiket->go_det->dep_airport->business_name;
   $destination_name = $list_tiket->go_det->arr_airport->business_name;
   $departure_date_formatted = $list_tiket->go_det->formatted_date;
@@ -87,29 +89,129 @@
 
 
   $unsorted_result = array();
+  $unsorted_departures = array();
+  $unsorted_returns = array();
   $counter = 1;
-  foreach ($list_tikets as $tiket) {
-    if ($counter > 0) break;
-    $result = array(
-      'departure' => array(
-        'id' => $tiket->flight_id,
-        'flight_number' => $tiket->flight_number,
-        'full_via'=> $tiket->full_via,
-        'image' => $tiket->image,
-        'simple_departure_time' => $tiket->simple_departure_time,
-        'simple_arrival_time' => $tiket->simple_arrival_time,
-        'transit' => $tiket->stop,
-        'origin' => $origin,
-        'destination' => $destination,
-        'duration' => $tiket->duration,
-        'price' => $tiket->price_value
-      ),
-      'total_price' => intval($tiket->price_value),
-      'type' => 'tiket'
-    );
-    array_push($unsorted_result, $result);
+  foreach ($list_tiket_dep as $tiket) {
+    if ($counter > 20) break;
+    if (isset($json->maskapai_filter) || isset($json->timeone) || isset($json->status_transit)){
+      // echo "Filteeerrr\n";
+      if ((($status_transit == 'direct' && empty($tiket->stop)) || ($status_transit == 'stop' && !empty($tiket->stop)))
+      && (in_array($leg['flights'][0]['name'], $maskapai_filter) || empty($maskapai_filter))
+      && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one)
+      &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)))
+      {
+        $result = array(
+          'departure' => array(
+            'id' => $tiket->flight_id,
+            'flight_number' => $tiket->flight_number,
+            'full_via'=> $tiket->full_via,
+            'image' => $tiket->image,
+            'simple_departure_time' => $tiket->simple_departure_time,
+            'simple_arrival_time' => $tiket->simple_arrival_time,
+            'transit' => $tiket->stop,
+            'origin' => $origin,
+            'destination' => $destination,
+            'duration' => $tiket->duration,
+            'price' => $tiket->price_value
+          ),
+          'total_price' => intval($tiket->price_value),
+          'type' => 'tiket'
+          );
+          array_push($unsorted_departures, $result);
+      } else {
+        $counter--;
+      }
+    } else {
+      $result = array(
+        'departure' => array(
+          'id' => $tiket->flight_id,
+          'flight_number' => $tiket->flight_number,
+          'full_via'=> $tiket->full_via,
+          'image' => $tiket->image,
+          'simple_departure_time' => $tiket->simple_departure_time,
+          'simple_arrival_time' => $tiket->simple_arrival_time,
+          'transit' => $tiket->stop,
+          'origin' => $origin,
+          'destination' => $destination,
+          'duration' => $tiket->duration,
+          'price' => $tiket->price_value
+        ),
+        'total_price' => intval($tiket->price_value),
+        'type' => 'tiket'
+      );
+      array_push($unsorted_departures, $result);
+    }
+
     $counter++;
   }
+
+  $counter = 1;
+  foreach ($list_tiket_ret as $tiket) {
+    if ($counter > 20) break;
+    if (isset($json->maskapai_filter) || isset($json->timeone) || isset($json->status_transit)){
+      // echo "Filteeerrr\n";
+      if ((($status_transit == 'direct' && empty($tiket->stop)) || ($status_transit == 'stop' && !empty($tiket->stop)))
+      && (in_array($leg['flights'][0]['name'], $maskapai_filter) || empty($maskapai_filter))
+      && ((int)str_replace(':','',substr($leg['departureTime'], 11, 5)) >= (int)str_replace(':','',$outbond_time_one)
+      &&  (int)str_replace(':','',substr($leg['departureTime'], 11, 5)) <= (int)str_replace(':','', $outbond_time_two)))
+      {
+        $result = array(
+          'return' => array(
+            'id' => $tiket->flight_id,
+            'flight_number' => $tiket->flight_number,
+            'full_via'=> $tiket->full_via,
+            'image' => $tiket->image,
+            'simple_departure_time' => $tiket->simple_departure_time,
+            'simple_arrival_time' => $tiket->simple_arrival_time,
+            'transit' => $tiket->stop,
+            'origin' => $origin,
+            'destination' => $destination,
+            'duration' => $tiket->duration,
+            'price' => $tiket->price_value
+          ),
+          'total_price' => intval($tiket->price_value),
+          'type' => 'tiket'
+          );
+          array_push($unsorted_returns, $result);
+      } else {
+        $counter--;
+      }
+    } else {
+      $result = array(
+        'return' => array(
+          'id' => $tiket->flight_id,
+          'flight_number' => $tiket->flight_number,
+          'full_via'=> $tiket->full_via,
+          'image' => $tiket->image,
+          'simple_departure_time' => $tiket->simple_departure_time,
+          'simple_arrival_time' => $tiket->simple_arrival_time,
+          'transit' => $tiket->stop,
+          'origin' => $origin,
+          'destination' => $destination,
+          'duration' => $tiket->duration,
+          'price' => $tiket->price_value
+        ),
+        'total_price' => intval($tiket->price_value),
+        'type' => 'tiket'
+      );
+      array_push($unsorted_returns, $result);
+    }
+
+    $counter++;
+  }
+
+  $sorted_departures = array();
+  foreach ($unsorted_departures as $key => $row) {
+    $sorted_departures[$key] = $row['total_price'];
+  }
+  array_multisort($sorted_departures, SORT_ASC, $unsorted_departures);
+
+  $sorted_returns = array();
+  foreach ($unsorted_returns as $key => $row) {
+    $sorted_returns[$key] = $row['total_price'];
+  }
+  array_multisort($sorted_returns, SORT_ASC, $unsorted_returns);
 
   $retry_null = 3;
 
@@ -348,7 +450,10 @@
     'destination_name' => $destination_name,
     'departure_date_formatted' => $departure_date_formatted,
     'return_date_formatted' => $return_date_formatted,
-    'json_input' => $undecode_json
+    'json_input' => $undecode_json,
+    'tiket_departures' => $unsorted_departures,
+    'tiket_returns' => $unsorted_returns,
+    'msisdn' => $msisdn
   );
 
   print json_encode($final_result);

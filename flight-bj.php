@@ -652,7 +652,7 @@ $(document).ready(function(){
 		// alert( "success" );
 		// alert(JSON.stringify(data));
 		console.log(data);
-		console.log(data.results);
+		console.log(data);
 		$.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
 		// $.postdatas({
 		// 	url:'flight-result-bj.php',
