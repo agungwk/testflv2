@@ -641,7 +641,7 @@ $formdata = json_decode($formdata);
 				var jqxhr = $.post( "flight-process-pp.php", jdata, function(jdata) {
 					$.redirect('result_pp.php', {'formdata' : JSON.stringify(jdata)});
 				})
-				console.log(maskapai);
+				
 			});
 		});
 		</script>
@@ -687,11 +687,32 @@ $formdata = json_decode($formdata);
 	});
 
 	$(document).ready(function($) {
+		function showPsnButton() {
+			var checked_d = false;
+			var checked_r = false;
+			$( ".whatever-d" ).each(function(e) {
+				if ($(this).attr('choosed')=='true') {
+					checked_d = true;
+				}
+			});
+			$( ".whatever-r" ).each(function(e) {
+				if ($(this).attr('choosed')=='true') {
+					checked_r = true;
+				}
+			});
+
+			var showButton = false;
+			if (checked_d && checked_r){
+				$("#btnPesan").show();
+			} else {
+				$("#btnPesan").hide();
+			}
+		}
+
 		$('.checkboxes-d label').click(function(){ // checkboxes overlay show
 			$( ".checkboxes-d label" ).each(function(e) {
 				$(this).prevUntil("input").prop('checked', false);
 				$(this).prev().hide();
-				console.log($(this));
 			});
 
 			var check_id = $(this).attr('check-id');
@@ -704,42 +725,17 @@ $formdata = json_decode($formdata);
 			$(this).prevUntil("input").prop('checked', true);
 			$(this).prev().show();
 
-			console.log($(this).prevUntil("input"));
-			console.log($(this));
-			console.log($('#'+$(this).attr('check-id')));
-
-			var checked_d = false;
-			var checked_r = false;
-			$( ".whatever-d" ).each(function(e) {
-				if ($(this).attr('choosed')=='true') {
-					checked_d = true;
-				}
-			});
-			$( ".whatever-r" ).each(function(e) {
-				if ($(this).attr('choosed')=='true') {
-					checked_r = true;
-				}
-			});
-
-			var showButton = false;
-			if (checked_d && checked_r){
-				$("#btnPesan").show();
-			} else {
-				$("#btnPesan").hide();
-			}
-			//console.log($(this).closest('input').id);
+			showPsnButton();
 		}); //document-ready end
 
 		$('.checkboxes-r label').click(function(){ // checkboxes overlay show
 			$( ".checkboxes-r label" ).each(function(e) {
 				$(this).prevUntil("input").prop('checked', false);
 				$(this).prev().hide();
-				console.log($(this));
 			});
 
 			$(this).prevUntil("input").prop('checked', true);
 			$(this).prev().show();
-			console.log('#checkboxes label');
 
 			$( ".whatever-r" ).each(function(e) {
 				$(this).attr('choosed', 'false');
@@ -747,42 +743,21 @@ $formdata = json_decode($formdata);
 
 			$(this).attr('choosed', 'true');
 
-			var checked_d = false;
-			var checked_r = false;
-			$( ".whatever-d" ).each(function(e) {
-				console.log('.whatever-d '+$(this).attr('choosed'));
-				if ($(this).attr('choosed')=='true') {
-					checked_d = true;
-				}
-			});
-			$( ".whatever-r" ).each(function(e) {
-				console.log('.whatever-r '+$(this).attr('choosed'));
-				if ($(this).attr('choosed')=='true') {
-					checked_r = true;
-				}
-			});
-
-			var showButton = false;
-			console.log(checked_d);
-			console.log(checked_r);
-			if (checked_d && checked_r){
-				$("#btnPesan").show();
-			} else {
-				$("#btnPesan").hide();
-			}
-			//console.log($(this).closest('input').id);
+			showPsnButton();
 		});
 
 		$('.checkboxes-d .check_overlay').click(function(){ // checkboxes overlay hide
-			$(this).prev().prop('checked', false);
+			$(this).next().attr('choosed', false);
 			$(this).hide();
-			console.log('#checkboxes .check_overlay');
+
+			showPsnButton();
 		});
 
 		$('.checkboxes-r .check_overlay').click(function(){ // checkboxes overlay hide
-			$(this).prev().prop('checked', false);
+			$(this).next().attr('choosed', false);
 			$(this).hide();
-			console.log('#checkboxes .check_overlay');
+
+			showPsnButton();
 		});
 
 		// $("#hide").click(function(){
@@ -815,16 +790,17 @@ $formdata = json_decode($formdata);
 					dept.destination_name = "<?php echo $formdata->destination_name; ?>";
 					dept.origin_name = "<?php echo $formdata->origin_name; ?>";
 					dept.departure_date_formatted = "<?php echo $formdata->departure_date_formatted; ?>";
+					dept.return_date_formatted = "<?php echo $formdata->return_date_formatted; ?>";
 					dept.msisdn = "<?php echo $formdata->msisdn; ?>";
-					console.log(v);
 				}
 			});
 			$.each(results.tiket_returns, function(k, v) {
 				if (v.return.id == return_id) {
 					ret = v;
-					ret.destination_name = "<?php echo $formdata->destination_name; ?>";
-					ret.origin_name = "<?php echo $formdata->origin_name; ?>";
+					ret.destination_name = "<?php echo $formdata->origin_name; ?>";
+					ret.origin_name = "<?php echo $formdata->destination_name; ?>";
 					ret.departure_date_formatted = "<?php echo $formdata->departure_date_formatted; ?>";
+					ret.return_date_formatted = "<?php echo $formdata->return_date_formatted; ?>";
 					ret.msisdn = "<?php echo $formdata->msisdn; ?>";
 				}
 			});
@@ -834,8 +810,8 @@ $formdata = json_decode($formdata);
 				"request" : $.parseJSON(results.json_input),
 				"pp" : true
 			};
-			console.log(post_data);
-			// $.redirect('confirmation.php', {'formdata' : JSON.stringify(post_data)});
+
+			$.redirect('confirmation.php', {'formdata' : JSON.stringify(post_data)});
 		});
 	});
 	</script>

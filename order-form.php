@@ -270,7 +270,6 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				var contact_title = $("#contact-title").find(":selected").val()
 				var contact_full_name = $('#contact-full-name').val();
 				var contact_phone_no = $('#contact-phone-no').val();
-				console.log(contact_title);
 
 				// console.log($('input[name="titlea1"]')[0]);
 				// console.log($('select[name="titlea1"]')[0]);
@@ -292,9 +291,8 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			var data = {
 				"formdata" : json_object_result,
 				"flight_data" : <?php echo json_encode($formdata); ?>,
-				"msisdn" : "<?php echo $formdata->result->msisdn; ?>"
+				"msisdn" : "<?php echo $formdata->request->msisdn; ?>"
 			};
-			console.log(data);
 			console.log(JSON.stringify(data));
 
 			var request = $.ajax({
@@ -306,10 +304,9 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 			});
 
 			request.success(function( msg ) {
-			  console.log(msg);
 				// header("Location:https://line.me/R/ti/p/%40bangjoni");
 				if (msg == 'OK') {
-					window.location.replace("https://line.me/R/ti/p/%40bangjoni");
+					// window.location.replace("https://line.me/R/ti/p/%40bangjoni");
 				}
 			});
 

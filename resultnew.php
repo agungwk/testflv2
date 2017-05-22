@@ -608,7 +608,6 @@ $formdata = json_decode($formdata);
 <script>
 $(document).ready(function(){
 	var results = <?php echo json_encode($formdata); ?>;
-	console.log(results);
 
 	$("#cbo_from").select2({
 		placeholder: "From",
@@ -634,7 +633,6 @@ $(document).ready(function(){
 
 	$('.submit-tiket').click(function(){
 		var tiket_id = $(this).attr('tiket-id');
-		console.log(tiket_id);
 		$.each(results.results, function(k, v) {
 			if (v.type == 'tiket') {
 				if (v.departure.id == tiket_id) {
@@ -647,7 +645,6 @@ $(document).ready(function(){
 						"request" : $.parseJSON(results.json_input),
 						"pp" : false
 					};
-					console.log(post_data);
 					$.redirect('confirmation.php', {'formdata' : JSON.stringify(post_data)});
 				}
 			}

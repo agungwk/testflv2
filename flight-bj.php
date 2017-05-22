@@ -565,7 +565,7 @@ $(document).ready(function(){
 	var jqxhr = $.post( "flight-process.php", data, function(data) {
 		// alert( "success" );
 		// alert(JSON.stringify(data));
-		console.log(data);
+		// console.log(data);
 		$.redirect('resultnew.php', {'formdata' : JSON.stringify(data)});
 		// $.postdatas({
 		// 	url:'flight-result-bj.php',
@@ -646,13 +646,9 @@ $(document).ready(function(){
 		"msisdn" : "<?php echo $msisdn; ?>"
 	});
 
-	console.log(data);
-
 	var jqxhr = $.post( "flight-process-pp.php", data, function(data) {
 		// alert( "success" );
 		// alert(JSON.stringify(data));
-		console.log(data);
-		console.log(data);
 		$.redirect('result_pp.php', {'formdata' : JSON.stringify(data)});
 		// $.postdatas({
 		// 	url:'flight-result-bj.php',

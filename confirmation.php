@@ -88,236 +88,156 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 				<div class="col-xs-4"><button class="btnBlank" data-toggle="collapse" data-target="#TRANSIT">TRANSIT</button></div>
 			</div> -->
 
-			<div id="MASKAPAI" class="collapse filterCollapse">
-				<div class="row filterBox no-margin">
-					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">MASKAPAI</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#MASKAPAI">DONE</button></div>
-				</div>
-				<div class="form-group" style="padding:0 15px;">
-					<div style="border-bottom:2px solid #d2cece; padding-top:10px; padding-bottom:5px;">
-						<span class="selectAll">SELECT ALL</span>
-						<span class="clearAll">CLEAR ALL</span>
-					</div>
-
-
-					<div Class="listBox">
-						<span class="bold f14" style="float:left;">Air Asia</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Asia" name="check" checked />
-							    <label for="Asia"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">Batik Air</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Batik" name="Batik" checked />
-							    <label for="Batik"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">Citilink</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Citilink" name="Citilink" checked />
-							    <label for="Citilink"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">Garuda Indonesia</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Garuda" name="Garuda" checked />
-							    <label for="Garuda"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">Lion Air</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Lion" name="Lion" checked />
-							    <label for="Lion"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">Malaysia Airlines</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" name="Malaysia" checked />
-							    <label for="Malaysia"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-				</div>
-			</div>
-
-			<div id="WAKTU" class="collapse filterCollapse">
-				<div class="row filterBox no-margin">
-					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">WAKTU</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#WAKTU">DONE</button></div>
-				</div>
-
-
-				<div class="form-group" style="padding:0 15px;">
-					<div style="border-bottom:1.5px solid #999999; padding-top:5px; padding-bottom:5px;">
-						<span class="clearAll" style="padding:0;">DEPARTURE TIMES</span>
-					</div>
-
-					<div style="padding:10px 0">
-						<div style="font-size:14px; color:#000000">Outbond</div>
-						<div style="font-size:12px;">00:00 - 23:59</div>
-						<input id="ex1" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
-					</div>
-
-
-					<div style="padding:10px 0">
-						<div style="font-size:14px; color:#000000">Return</div>
-						<div style="font-size:12px;">00:00 - 23:59</div>
-						<input id="ex2" type="text" class="span2" value="" data-slider-min="100" data-slider-max="2400" data-slider-step="100" data-slider-value="[0,2300]"/>
-					</div>
-				</div>
-			</div>
-
-			<div id="TRANSIT" class="collapse filterCollapse">
-				<div class="row filterBox no-margin">
-					<div class="col-xs-8" style="text-align: left; padding: 2px 0;">TRANSIT</div>
-					<div class="col-xs-4" style="padding: 0;"><button style="float: right;" class="btn btn-primary btnPad" data-toggle="collapse" data-target="#TRANSIT">DONE</button></div>
-				</div>
-
-				<div class="form-group" style="padding:0 15px;">
-					<div style="border-bottom:1.5px solid #999999; padding-top:5px; padding-bottom:5px;">
-						<span class="clearAll" style="padding:0;">STOPS</span>
-					</div>
-
-
-					<div Class="listBox">
-						<span class="bold f14" style="float:left;">Direct</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" name="Malaysia" checked />
-							    <label for="Malaysia"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-
-                  	<div Class="listBox">
-						<span class="bold f14" style="float:left;">1 Stop</span>
-						<span class="f14" style="float:right;">
-							 IDR 500.000
-							<label class="squaredFour">
-							    <input type="checkbox" value="None" id="Malaysia" name="Malaysia" checked />
-							    <label for="Malaysia"></label>
-							</label>
-	                    </span>
-                  	</div>
-
-				 	<div Class="listBox">
-						<span class="bold f14" style="float:left;">2x Stop</span>
-						<span style="float:right;">
-							None
-	                    </span>
-                  	</div>
-				</div>
-
-			</div>
 		</div>
 
-		<div class="row no-margin">
-			<div class="col-xs-12" style="background-color:#fff; padding:10px 15px; margin-bottom:5px;">
-				<div style="font-size: 14px; line-height: 14px; color: #326699; font-weight: bold; border-bottom: 1.5px solid #999999; padding: 5px 0;">
-				PENERBANGAN PERGI </br> <span style="font-size: 10px; color: #a5a5a5;"><?php echo $formdata->result->departure_date_formatted; ?></span>
-				</div>
+		<div class="container animate-box">
+			<?php if ($formdata->pp == false) {?>
 
-				<div>
-					<img src="<?php echo $formdata->result->departure->image; ?>" style="height:auto; width: 70px; margin: 10px 0;">
-				</div>
-
-				<div style="width: 100%; float: left; border-bottom: 1px solid #999999; padding-bottom: 5px;">
-					<div class="col-xs-5 arrive" style="padding: 0 !important;">
-						<div class="timesConfirm"><?php echo substr($formdata->result->departure->full_via,11,6); ?></div>
-						<div class="timesConfirm" data-id="10485"> <?php echo $formdata->result->origin_name . ' (' . $formdata->result->departure->origin . ')'; ?></div>
-						<div style="font-size:9px;"><?php echo $formdata->result->departure->simple_departure_time; ?></div>
+			<div class="row no-margin">
+				<div class="col-xs-12" style="background-color:#fff; padding:10px 15px; margin-bottom:5px;">
+					<div style="font-size: 14px; line-height: 14px; color: #326699; font-weight: bold; border-bottom: 1.5px solid #999999; padding: 5px 0;">
+					PENERBANGAN PERGI </br> <span style="font-size: 10px; color: #a5a5a5;"><?php echo $formdata->result->departure_date_formatted; ?></span>
 					</div>
 
-					<div class="col-xs-2 stopBox" style="padding: 5px !Important; font-size: 8px;">
-						<div class="stops">
-							<ul class="stop-line">
-								<img class="directArrow" src="images/Asset/cheright.png">
-							</ul>
+					<div>
+						<img src="<?php echo $formdata->result->departure->image; ?>" style="height:auto; width: 70px; margin: 10px 0;">
+					</div>
 
-							<div class="leg-stops">
-								<span class="leg-stops-red leg-stops-label"><?php echo $formdata->result->departure->transit; ?></span>
+					<div style="width: 100%; float: left; border-bottom: 1px solid #999999; padding-bottom: 5px;">
+						<div class="col-xs-5 arrive" style="padding: 0 !important;">
+							<div class="timesConfirm"><?php echo substr($formdata->result->departure->full_via,11,6); ?></div>
+							<div class="timesConfirm" data-id="10485"> <?php echo $formdata->result->origin_name . ' (' . $formdata->result->departure->origin . ')'; ?></div>
+							<div style="font-size:9px;"><?php echo $formdata->result->departure->simple_departure_time; ?></div>
+						</div>
+
+						<div class="col-xs-2 stopBox" style="padding: 5px !Important; font-size: 8px;">
+							<div class="stops">
+								<ul class="stop-line">
+									<img class="directArrow" src="images/Asset/cheright.png">
+								</ul>
+
+								<div class="leg-stops">
+									<span class="leg-stops-red leg-stops-label"><?php echo $formdata->result->departure->transit; ?></span>
+								</div>
 							</div>
 						</div>
+						<div class="col-xs-5 arrive" style="padding: 0 10px !important;">
+							<div class="timesConfirm"><?php echo substr($formdata->result->departure->full_via,19,5); ?></div>
+							<div class="timesConfirm" data-id="10485"><?php echo $formdata->result->destination_name . ' (' . $formdata->result->departure->destination . ')'; ?></div>
+							<div style="font-size:9px;"><?php echo $formdata->result->departure->simple_arrival_time; ?></div>
+						</div>
 					</div>
-					<div class="col-xs-5 arrive" style="padding: 0 10px !important;">
-						<div class="timesConfirm"><?php echo substr($formdata->result->departure->full_via,19,5); ?></div>
-						<div class="timesConfirm" data-id="10485"><?php echo $formdata->result->destination_name . ' (' . $formdata->result->departure->destination . ')'; ?></div>
-						<div style="font-size:9px;"><?php echo $formdata->result->departure->simple_arrival_time; ?></div>
+
+					<div style="width:100%; float: left; padding-top: 10px; color:#efbd03;">
+						<span style="text-align:left; font-size:10px; font-weight: bold;">HARGA</span>
+						<span style="text-align:right; float:right; font-weight:bold; font-size:14px;">IDR <?php echo number_format(intval($formdata->result->total_price),0,',','.') ?></span>
 					</div>
+
 				</div>
 
-				<div style="width:100%; float: left; padding-top: 10px; color:#efbd03;">
-					<span style="text-align:left; font-size:10px; font-weight: bold;">HARGA</span>
-					<span style="text-align:right; float:right; font-weight:bold; font-size:14px;">IDR <?php echo number_format(intval($formdata->result->total_price),0,',','.') ?></span>
+				<div class="col-xs-12 totalBox" style="font-size: 14px; color: #efbd03;">
+					TOTAL : <span> IDR <?php echo number_format(intval($formdata->result->total_price),0,',','.') ?></span>
 				</div>
 
+				<div class="col-xs-12" style="text-align:center; width:100%;">
+					<button style="margin: 20px auto; padding: 5px; font-size: 14px; width: 70%;" type="submit" class="btn btn-primary btn-block submit-tiket" value="PESAN">PESAN </button>
+				</div>
 			</div>
+			<?php } else if ($formdata->pp == true) { ?>
+				<div class="row no-margin">
+					<div class="col-xs-12" style="background-color:#fff; padding:10px 15px; margin-bottom:5px;">
+						<div style="font-size: 14px; line-height: 14px; color: #326699; font-weight: bold; border-bottom: 1.5px solid #999999; padding: 5px 0;">
+						PENERBANGAN PERGI </br> <span style="font-size: 10px; color: #a5a5a5;"><?php echo $formdata->result->departure->departure_date_formatted; ?></span>
+						</div>
 
-			<div class="col-xs-12 totalBox" style="font-size: 14px; color: #efbd03;">
-				TOTAL : <span> IDR <?php echo number_format(intval($formdata->result->total_price),0,',','.') ?></span>
-			</div>
+						<div>
+							<img src="<?php echo $formdata->result->departure->departure->image; ?>" style="height:auto; width: 70px; margin: 10px 0;">
+						</div>
+
+						<div style="width: 100%; float: left; border-bottom: 1px solid #999999; padding-bottom: 5px;">
+							<div class="col-xs-5 arrive" style="padding: 0 !important;">
+								<div class="timesConfirm"><?php echo substr($formdata->result->departure->departure->full_via,11,6); ?></div>
+								<div class="timesConfirm" data-id="10485"> <?php echo $formdata->result->departure->origin_name . ' (' . $formdata->result->departure->departure->origin . ')'; ?></div>
+								<div style="font-size:9px;"><?php echo $formdata->result->departure->departure->simple_departure_time; ?></div>
+							</div>
+
+							<div class="col-xs-2 stopBox" style="padding: 5px !Important; font-size: 8px;">
+								<div class="stops">
+									<ul class="stop-line">
+										<img class="directArrow" src="images/Asset/cheright.png">
+									</ul>
+
+									<div class="leg-stops">
+										<span class="leg-stops-red leg-stops-label"><?php echo $formdata->result->departure->departure->transit; ?></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-5 arrive" style="padding: 0 10px !important;">
+								<div class="timesConfirm"><?php echo substr($formdata->result->departure->departure->full_via,19,5); ?></div>
+								<div class="timesConfirm" data-id="10485"><?php echo $formdata->result->departure->destination_name . ' (' . $formdata->result->departure->departure->destination . ')'; ?></div>
+								<div style="font-size:9px;"><?php echo $formdata->result->departure->departure->simple_arrival_time; ?></div>
+							</div>
+						</div>
+
+						<div style="width:100%; float: left; padding-top: 10px; color:#efbd03;">
+							<span style="text-align:left; font-size:10px; font-weight: bold;">HARGA</span>
+							<span style="text-align:right; float:right; font-weight:bold; font-size:14px;">IDR <?php echo number_format(intval($formdata->result->departure->total_price),0,',','.') ?></span>
+						</div>
+
+					</div>
+
+					<div class="col-xs-12" style="background-color:#fff; padding:10px 15px; margin-bottom:5px;">
+						<div style="font-size: 14px; line-height: 14px; color: #326699; font-weight: bold; border-bottom: 1.5px solid #999999; padding: 5px 0;">
+						PENERBANGAN PULANG </br> <span style="font-size: 10px; color: #a5a5a5;"><?php echo $formdata->result->departure->return_date_formatted; ?></span>
+						</div>
+
+						<div>
+							<img src="<?php echo $formdata->result->return->return->image; ?>" style="height:auto; width: 70px; margin: 10px 0;">
+						</div>
+
+						<div style="width: 100%; float: left; border-bottom: 1px solid #999999; padding-bottom: 5px;">
+							<div class="col-xs-5 arrive" style="padding: 0 !important;">
+								<div class="timesConfirm"><?php echo substr($formdata->result->return->return->full_via,11,6); ?></div>
+								<div class="timesConfirm" data-id="10485"> <?php echo $formdata->result->departure->destination_name . ' (' . $formdata->result->return->return->destination . ')'; ?></div>
+								<div style="font-size:9px;"><?php echo $formdata->result->departure->departure->simple_departure_time; ?></div>
+							</div>
+
+							<div class="col-xs-2 stopBox" style="padding: 5px !Important; font-size: 8px;">
+								<div class="stops">
+									<ul class="stop-line">
+										<img class="directArrow" src="images/Asset/cheright.png">
+									</ul>
+
+									<div class="leg-stops">
+										<span class="leg-stops-red leg-stops-label"><?php echo $formdata->result->return->return->transit; ?></span>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-5 arrive" style="padding: 0 10px !important;">
+								<div class="timesConfirm"><?php echo substr($formdata->result->return->return->full_via,19,5); ?></div>
+								<div class="timesConfirm" data-id="10485"><?php echo $formdata->result->departure->origin_name . ' (' . $formdata->result->return->return->origin . ')'; ?></div>
+								<div style="font-size:9px;"><?php echo $formdata->result->return->return->simple_arrival_time; ?></div>
+							</div>
+						</div>
+
+						<div style="width:100%; float: left; padding-top: 10px; color:#efbd03;">
+							<span style="text-align:left; font-size:10px; font-weight: bold;">HARGA</span>
+							<span style="text-align:right; float:right; font-weight:bold; font-size:14px;">IDR <?php echo number_format(intval($formdata->result->return->total_price),0,',','.') ?></span>
+						</div>
+
+					</div>
 
 
-			<div class="col-xs-12" style="text-align:center; width:100%;">
-				<button style="margin: 20px auto; padding: 5px; font-size: 14px; width: 70%;" type="submit" class="btn btn-primary btn-block submit-tiket" value="PESAN">PESAN </button>
-			</div>
+					<div class="col-xs-12 totalBox" style="font-size: 14px; color: #efbd03;">
+						TOTAL : <span> IDR <?php echo number_format(intval($formdata->result->departure->total_price + $formdata->result->return->total_price),0,',','.') ?></span>
+					</div>
 
-
-
+					<div class="col-xs-12" style="text-align:center; width:100%;">
+						<button style="margin: 20px auto; padding: 5px; font-size: 14px; width: 70%;" type="submit" class="btn btn-primary btn-block submit-tiket" value="PESAN">PESAN </button>
+					</div>
+				</div>
+			<?php } ?>
 		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	<!-- jQuery -->
 
@@ -392,7 +312,7 @@ font-family: "Montserrat", Montserrat, Arial, sans-serif; -->
 
 			$('.submit-tiket').click(function(){
 				var post_data = <?php echo json_encode($formdata); ?>;
-				console.log(post_data);
+				console.log(JSON.stringify(post_data));
 				$.redirect('order-form.php', {'formdata' : JSON.stringify(post_data)});
 
 				});
